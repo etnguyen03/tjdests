@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% load bootstrap_pagination %}
+
+{% block content %}
+    <h2>Student Destinations by College</h2>
+
+    <p><b>Note</b>: All data is self-reported. We do not make any claim as to the accuracy of this data.</p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">University Name</th>
+                <th scope="col">Total Applications</th>
+                <th scope="col">Admitted</th>
+                <th scope="col">Waitlisted</th>
+                <th scope="col">Waitlist-Admitted</th>
+                <th scope="col">Waitlist-Denied</th>
+                <th scope="col">Deferred</th>
+                <th scope="col">Deferred-Admitted</th>
+                <th scope="col">Deferred-Denied</th>
+                <th scope="col">Denied</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for college in object_list %}
+                <tr>
+                    <th scope="row"><a href="{% url "destinations:students" %}?college={{ college.id }}">{{ college.name }}</a></th>
+                    <td>{{ college.count_decisions }}</td>
+                    <td>{{ college.count_admit }}</td>
+                    <td>{{ college.count_waitlist }}</td>
+                    <td>{{ college.count_waitlist_admit }}</td>
+                    <td>{{ college.count_waitlist_deny }}</td>
+                    <td>{{ college.count_defer }}</td>
+                    <td>{{ college.count_defer_admit }}</td>
+                    <td>{{ college.count_defer_deny }}</td>
+                    <td>{{ college.count_deny }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td>There is no data to display.</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="row py-3">
+        <div class="col justify-content-center">
+            {% bootstrap_paginate page_obj range=10 extra_pagination_classes="justify-content-center" %}
+        </div>
+    </div>
+
+{% endblock %}

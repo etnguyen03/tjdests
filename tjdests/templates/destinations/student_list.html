@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% load bootstrap_pagination %}
+
+{% block content %}
+    <h2>Student Destinations</h2>
+
+    <p><b>Note</b>: All data is self-reported. We do not make any claim as to the accuracy of this data.</p>
+
+    {% if college %}
+        <p>Only showing students reporting applications to {{ college }}.</p>
+    {% endif %}
+
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Test scores</th>
+                    <th scope="col">Biography</th>
+                    <th scope="col">Decisions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for senior in object_list %}
+                    <tr>
+                        <td>{{ senior }}</td>
+                        <td>
+                            {# Test scores #}
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Test</th>
+                                        <th scope="col">Score</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for score in senior.testscore_set.all %}
+                                        <tr>
+                                            <td>{{ score.get_exam_type_display }}</td>
+                                            <td>{{ score.exam_score }}</td>
+                                        </tr>
+                                    {% empty %}
+                                        <tr>
+                                            <td>There are no test scores to display.</td>
+                                            <td></td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </td>
+                        <td>{{ senior.biography|linebreaks }}</td>
+                        <td>
+                            {# Decisions #}
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Type<br>Result</th>
+                                        <th scope="col">College Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for decision in senior.decision_set.all %}
+                                        <tr>
+                                            <td class="d-flex-inline">
+                                                <span class="justify-content-center d-flex pb-1" data-toggle="tooltip" title="{{ decision.get_decision_type_display }}" aria-label="{{ decision.get_decision_type_display }}">{{ decision.decision_type }}</span>
+                                                <div class="justify-content-center d-flex">
+                                                    {# First, the waitlist indicator #}
+                                                    {% if decision.admission_status == "WAITLIST" or decision.admission_status == "WAITLIST_ADMIT" or decision.admission_status == "WAITLIST_DENY" %}
+                                                        <i class="fas fa-clipboard-list ps-1" data-toggle="tooltip" title="Waitlisted" aria-label="Waitlisted"></i>
+                                                    {% endif %}
+                                                    {# Now, the deferred indicator #}
+                                                    {% if decision.admission_status == "DEFER" or decision.admission_status == "DEFER_ADMIT" or decision.admission_status == "DEFER_DENY" %}
+                                                        <i class="fas fa-clock ps-1" data-toggle="tooltip" title="Deferred" aria-label="Deferred"></i>
+                                                    {% endif %}
+                                                    {# Admits #}
+                                                    {% if decision.admission_status == "ADMIT" or decision.admission_status == "WAITLIST_ADMIT" or decision.admission_status == "DEFER_ADMIT" %}
+                                                        {# Accepts get a different check #}
+                                                        {% if senior.attending_decision == decision %}
+                                                            <i class="fas fa-check-double ps-1" data-toggle="tooltip" title="Accepted, attending" aria-label="Accepted, attending"></i>
+                                                        {% else %}
+                                                            <i class="fas fa-check ps-1" data-toggle="tooltip" title="Accepted" aria-label="Accepted"></i>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                    {# Rejects #}
+                                                    {% if decision.admission_status == "DENY" or decision.admission_status == "WAITLIST_DENY" or decision.admission_status == "DEFER_DENY" %}
+                                                        <i class="fas fa-times ps-1" data-toggle="tooltip" title="Denied" aria-label="Denied"></i>
+                                                    {% endif %}
+                                                </div>
+                                            </td>
+                                            <td>{{ decision.college.name }}<br>{{ decision.college.location }}</td>
+                                        </tr>
+                                    {% empty %}
+                                        <tr>
+                                            <td>There are no decisions to display.</td>
+                                            <td></td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td>There is no data to display.</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row py-3">
+        <div class="col justify-content-center">
+            {% bootstrap_paginate page_obj range=10 extra_pagination_classes="justify-content-center" %}
+        </div>
+    </div>
+
+{% endblock %}

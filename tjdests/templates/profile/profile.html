@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <h2>Profile</h2>
+    <p>You are {{ request.user.username }}, {{ request.user.first_name }} {{ request.user.last_name }}.</p>
+
+    <h4>Data Publication, College Attending, Biography</h4>
+    <div class="container">
+        {% if request.user.is_senior %}
+            {% crispy profile_form %}
+        {% else %}
+            <p>You are not a senior, so you cannot publish data.</p>
+        {% endif %}
+    </div>
+
+    <h4>Decisions</h4>
+    <div class="container">
+        {% if request.user.is_senior %}
+            <div class="pt-3 pb-3">
+                    <a href="{% url "profile:decision_add" %}" class="btn btn-outline-primary">Add decision</a>
+                </div>
+
+                <p>Your current decisions are:</p>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">University Name</th>
+                            <th scope="col">Admissions Round</th>
+                            <th scope="col">Result</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            {% for decision in decisions_list %}
+                                <tr>
+                                    <td>{{ decision.college.name }}</td>
+                                    <td>{{ decision.get_decision_type_display }}</td>
+                                    <td>{{ decision.get_admission_status_display }}{% if request.user.attending_decision == decision %}, Attending{% endif %}</td>
+                                    <td>
+                                        {# edit button #}
+                                        <a href="{% url "profile:decision_edit" decision.id %}" class="btn btn-outline-warning" aria-label="Edit">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </a>
+                                        {# delete #}
+                                        <a href="{% url "profile:decision_delete" decision.id %}" class="btn btn-outline-danger" aria-label="Delete">
+                                            <i class="far fa-trash-alt"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td>There is no data to display.</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            {% endfor %}
+                        </tr>
+                    </tbody>
+                </table>
+        {% else %}
+            <p>You are not a senior, therefore you cannot add decisions.</p>
+        {% endif %}
+    </div>
+
+    <h4>Test Scores</h4>
+    <div class="container">
+        {% if request.user.is_senior %}
+            <div class="pt-3 pb-3">
+                <a href="{% url "profile:testscores_add" %}" class="btn btn-outline-primary">Add test score</a>
+            </div>
+
+            <p>Your current test scores are:</p>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Exam Type</th>
+                        <th scope="col">Exam Score</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        {% for score in test_scores_list %}
+                            <tr>
+                                <td>{{ score.get_exam_type_display }}</td>
+                                <td>{{ score.exam_score }}</td>
+                                <td>
+                                    {# edit button #}
+                                    <a href="{% url "profile:testscores_edit" score.id %}" class="btn btn-outline-warning" aria-label="Edit">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </a>
+                                    {# delete #}
+                                    <a href="{% url "profile:testscores_delete" score.id %}" class="btn btn-outline-danger" aria-label="Delete">
+                                        <i class="far fa-trash-alt"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td>There is no data to display.</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
+        {% else %}
+            <p>You are not a senior, therefore you cannot add test scores.</p>
+        {% endif %}
+    </div>
+
+
+{% endblock %}

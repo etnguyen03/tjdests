@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <h2>Login</h2>
+    <p>By logging in, you agree to the terms listed <a href="{% url "authentication:index" %}#important">at the bottom of the home page</a>.</p>
+
+    <div class="alert alert-primary" role="alert">
+        <b>Is this your first time here?</b> If so, you will need to log in using Ion to establish an account first.
+        After you have set a permanent password, you may log in using it, if you wish, or if you can no longer
+        access your Ion account.
+    </div>
+
+    <div class="container">
+        <div class="row align-items-start">
+            <div class="col">
+                <h4>Log in with Ion</h4>
+                <form action="{% url "social:begin" "ion" %}{% if request.GET.next %}?next={{ request.GET.next|urlencode }}{% endif %}" method="POST">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-primary" value="Login with Ion">
+                </form>
+            </div>
+            <div class="col">
+                <h4>Log in with Username and Password</h4>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <div class="pt-3">
+                        <input type="submit" value="Login" class="btn btn-primary">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
