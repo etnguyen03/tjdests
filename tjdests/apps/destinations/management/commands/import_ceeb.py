@@ -5,6 +5,7 @@ from django.core.management.base import BaseCommand
 
 from ...models import College
 
+
 class Command(BaseCommand):
     help = "Imports a CSV of CEEB codes as colleges"
 
@@ -20,9 +21,21 @@ class Command(BaseCommand):
             reader = csv.DictReader(file)
 
             for line in reader:
-                result = College.objects.update_or_create(ceeb_code=line["CEEB"], defaults={"name": line["College Name"], "location": f"{line['City']}, {line['State']}"})
+                result = College.objects.update_or_create(
+                    ceeb_code=line["CEEB"],
+                    defaults={
+                        "name": line["College Name"],
+                        "location": f"{line['City']}, {line['State']}",
+                    },
+                )
 
                 if result[1]:
-                    self.stdout.write(f"Added university {result[0].name}.", style_func=self.style.SUCCESS)
+                    self.stdout.write(
+                        f"Added university {result[0].name}.",
+                        style_func=self.style.SUCCESS,
+                    )
                 else:
-                    self.stdout.write(f"Did not update university {result[0].name}.", style_func=self.style.WARNING)
+                    self.stdout.write(
+                        f"Did not update university {result[0].name}.",
+                        style_func=self.style.WARNING,
+                    )

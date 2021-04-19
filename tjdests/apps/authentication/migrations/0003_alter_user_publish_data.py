@@ -6,13 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('authentication', '0002_initial'),
+        ("authentication", "0002_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='user',
-            name='publish_data',
-            field=models.BooleanField(default=False, help_text='Unless this is set, your data will not appear publicly.', verbose_name='Publish my data'),
+            model_name="user",
+            name="publish_data",
+            field=models.BooleanField(
+                default=False,
+                help_text="Unless this is set, your data will not appear publicly.",
+                verbose_name="Publish my data",
+            ),
         ),
     ]

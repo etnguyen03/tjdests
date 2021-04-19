@@ -10,7 +10,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 # secret
-SECRET_KEY = 'supersecret'
+SECRET_KEY = "supersecret"
 
 # OAuth
 SOCIAL_AUTH_ION_KEY = "ionkey"

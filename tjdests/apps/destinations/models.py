@@ -4,7 +4,8 @@ from django.db import models
 class College(models.Model):
     """Represents a college."""
 
-    ceeb_code = models.CharField(max_length=10, null=False, verbose_name="CEEB Code")
+    ceeb_code = models.CharField(
+        max_length=10, null=False, verbose_name="CEEB Code")
     name = models.CharField(max_length=250, null=False, blank=False)
     location = models.CharField(max_length=250, null=False, blank=False)
 
@@ -33,7 +34,9 @@ class Decision(models.Model):
 
     user = models.ForeignKey("authentication.User", on_delete=models.CASCADE)
 
-    decision_type = models.CharField(max_length=20, choices=DECISION_TYPE_CHOICES, null=True)
+    decision_type = models.CharField(
+        max_length=20, choices=DECISION_TYPE_CHOICES, null=True
+    )
 
     ADMIT = "ADMIT"
     WAITLIST_ADMIT = "WAITLIST_ADMIT"
@@ -55,7 +58,8 @@ class Decision(models.Model):
         (DENY, "Denied"),
     ]
 
-    admission_status = models.CharField(max_length=20, choices=ADMIT_TYPE_CHOICES)
+    admission_status = models.CharField(
+        max_length=20, choices=ADMIT_TYPE_CHOICES)
     college = models.ForeignKey(College, on_delete=models.CASCADE)
 
     def __str__(self):

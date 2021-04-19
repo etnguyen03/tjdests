@@ -1,9 +1,9 @@
+from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
-from django.contrib import messages
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse
 
 from tjdests.apps.authentication.decorators import require_accept_tos
@@ -12,6 +12,7 @@ from tjdests.apps.authentication.forms import TOSForm
 
 def index_view(request: HttpRequest) -> HttpResponse:
     return render(request, "authentication/index.html")
+
 
 @login_required
 def accept_tos_view(request: HttpRequest) -> HttpResponse:
@@ -33,7 +34,11 @@ def accept_tos_view(request: HttpRequest) -> HttpResponse:
             request.user.set_password(form.cleaned_data.get("password"))
             request.user.save()
 
-            login(request, request.user, backend='django.contrib.auth.backends.ModelBackend')
+            login(
+                request,
+                request.user,
+                backend="django.contrib.auth.backends.ModelBackend",
+            )
 
             messages.success(request, "You have logged in.")
 
@@ -45,6 +50,6 @@ def accept_tos_view(request: HttpRequest) -> HttpResponse:
 
     return render(request, "authentication/accept_tos.html", context=context)
 
+
 class LoginViewCustom(LoginView):
     template_name = "authentication/login.html"
-
