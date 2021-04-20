@@ -1,0 +1,9 @@
+[run]
+branch = True
+source = tjdests
+omit =
+    */migrations/*
+    */apps.py
+    */urls.py
+    */wsgi.py
+    */routing.py

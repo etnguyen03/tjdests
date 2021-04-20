@@ -1,0 +1,92 @@
+name: CI
+on: [push, pull_request]
+
+defaults:
+  run:
+    shell: bash
+
+.anchors:
+  python_versions: &python_versions
+    - 3.9
+
+  python_setup: &python_setup
+    name: Set up Python ${{ matrix.python-version }}
+    uses: actions/setup-python@v2
+    with:
+      python-version: ${{ matrix.python-version }}
+
+  repo_setup: &repo_setup
+    name: Set up repo
+    uses: actions/checkout@v2
+
+  setup_pip_cache: &setup_pip_cache
+    name: Set up pip cache
+    uses: actions/cache@v2
+    with:
+      path: |
+        ~/.cache/pip
+        ~/.cache/pipenv
+      key: ${{ matrix.python-version }}
+
+  setup_venv: &setup_venv
+    name: Set up venv
+    run: |
+      set -e
+      pip install pipenv
+      pipenv install --dev --deploy
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: *python_versions
+
+    steps:
+      - *repo_setup
+      - *python_setup
+      - *setup_pip_cache
+      - *setup_venv
+
+      - name: Check formatting with format.sh
+        run: |
+          set -e
+          pipenv run ./scripts/format.sh
+          echo "A failure means that you did not run format.sh"
+          test -z "$(git status --porcelain=v1 .)"
+
+      - name: Check formatting with check.sh
+        run: pipenv run ./scripts/check.sh
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: *python_versions
+
+    steps:
+      - *repo_setup
+      - *python_setup
+      - *setup_pip_cache
+      - *setup_venv
+
+      - name: Run test suite
+        run: pipenv run coverage run ./manage.py test
+
+      - name: Report coverage to Coveralls
+        uses: AndreMiras/coveralls-python-action@develop
+        with:
+          parallel: true
+
+  finish_success:
+    needs:
+      - lint
+      - test
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Tell Coveralls that parallel jobs have finished
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          parallel-finished: true
