@@ -10,7 +10,7 @@ from django.views.generic import CreateView, DeleteView, UpdateView
 from tjdests.apps.authentication.decorators import require_accept_tos
 from tjdests.apps.destinations.models import Decision, TestScore
 
-from .forms import ProfilePublishForm
+from .forms import ProfilePublishForm, TestScoreForm
 
 
 @login_required
@@ -43,7 +43,7 @@ class TestScoreCreateView(
     LoginRequiredMixin, SuccessMessageMixin, UserPassesTestMixin, CreateView
 ):
     model = TestScore
-    fields = ["exam_type", "exam_score"]
+    form_class = TestScoreForm
     template_name = "profile/testscore_form.html"
     success_message = "Test score created successfully."
 
@@ -62,7 +62,7 @@ class TestScoreUpdateView(
     LoginRequiredMixin, SuccessMessageMixin, UserPassesTestMixin, UpdateView
 ):
     model = TestScore
-    fields = ["exam_type", "exam_score"]
+    form_class = TestScoreForm
     template_name = "profile/testscore_form.html"
     success_message = "Test score updated successfully."
 
