@@ -7,3 +7,6 @@ omit =
     */urls.py
     */wsgi.py
     */routing.py
+
+# Needed for the Coveralls reporter
+relative_files = True
