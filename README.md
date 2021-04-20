@@ -1,6 +1,9 @@
 tjdests
 ===
 
+[![CI](https://github.com/etnguyen03/tjdests/actions/workflows/ci.yml/badge.svg?branch=master&event=push)](https://github.com/etnguyen03/tjdests/actions/workflows/ci.yml)
+[![Coverage Status](https://coveralls.io/repos/github/etnguyen03/tjdests/badge.svg?branch=master)](https://coveralls.io/github/etnguyen03/tjdests?branch=master)
+
 TJ Destinations, ala Ethan.
 
 THIS WEBSITE IS NOT, IN ANY WAY, AFFILIATED WITH NOR ENDORSED BY THE
