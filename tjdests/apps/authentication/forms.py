@@ -68,3 +68,5 @@ class TOSForm(forms.Form):
         # Validate the password for complexity, etc.
         validators = password_validation.get_default_password_validators()
         password_validation.validate_password(password1, None, validators)
+
+        return cleaned_data
