@@ -6,6 +6,7 @@ omit =
     */apps.py
     */urls.py
     */wsgi.py
+    */asgi.py
     */routing.py
 
 # Needed for the Coveralls reporter
