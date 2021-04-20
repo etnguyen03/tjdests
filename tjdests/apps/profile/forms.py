@@ -74,8 +74,8 @@ class TestScoreForm(forms.ModelForm):
                     self.add_error("exam_score", "This is not a valid SAT exam score")
 
             # AP is 1-5
-            if exam_type.startswith("AP_"):
-                if not 1 <= exam_score <= 36:
+            elif exam_type.startswith("AP_"):
+                if not 1 <= exam_score <= 5:
                     self.add_error("exam_score", "This is not a valid AP exam score")
 
         return cleaned_data
