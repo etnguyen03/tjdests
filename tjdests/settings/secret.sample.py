@@ -15,3 +15,7 @@ SECRET_KEY = "supersecret"
 # OAuth
 SOCIAL_AUTH_ION_KEY = "ionkey"
 SOCIAL_AUTH_ION_SECRET = "ionsecret"
+
+# Message blast - treated as HTML safe text
+# type: str
+GLOBAL_MESSAGE = None
