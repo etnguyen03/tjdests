@@ -6,7 +6,6 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
-from tjdests.apps.authentication.decorators import require_accept_tos
 from tjdests.apps.authentication.forms import TOSForm
 
 

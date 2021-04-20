@@ -7,7 +7,9 @@ from ..authentication.models import User
 from .models import College, Decision
 
 
-class StudentDestinationListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
+class StudentDestinationListView(
+    LoginRequiredMixin, UserPassesTestMixin, ListView
+):  # pylint: disable=too-many-ancestors
     model = User
     paginate_by = 20
 
@@ -23,9 +25,10 @@ class StudentDestinationListView(LoginRequiredMixin, UserPassesTestMixin, ListVi
 
         return queryset
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(StudentDestinationListView,
-                        self).get_context_data(**kwargs)
+    def get_context_data(
+        self, *, object_list=None, **kwargs
+    ):  # pylint: disable=unused-argument
+        context = super().get_context_data(**kwargs)
 
         college_id = self.request.GET.get("college", None)
         if college_id is not None:
@@ -39,7 +42,9 @@ class StudentDestinationListView(LoginRequiredMixin, UserPassesTestMixin, ListVi
     template_name = "destinations/student_list.html"
 
 
-class CollegeDestinationListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
+class CollegeDestinationListView(
+    LoginRequiredMixin, UserPassesTestMixin, ListView
+):  # pylint: disable=too-many-ancestors
     model = College
     paginate_by = 20
     queryset = (

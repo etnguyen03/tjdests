@@ -12,8 +12,9 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import logging
 import os
 from pathlib import Path
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from typing import List
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -26,7 +27,7 @@ SECRET_KEY = "django-insecure-7nju0o%j&gz7&v^05iuq*tn$_iwvtjh1cq26@is(u2d4snkum5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS: List[str] = []
 
 
 # Application definition
@@ -157,7 +158,6 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 try:
-    from .secret import *
+    from .secret import *  # noqa  # pylint: disable=unused-import
 except ImportError:
     logging.warning("Error importing secret.py")
-    pass

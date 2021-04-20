@@ -1,5 +1,6 @@
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
+
 from django import forms
 from django.contrib.auth import password_validation
 
@@ -14,22 +15,22 @@ class TOSForm(forms.Form):
 
     accept_tos = forms.BooleanField(
         required=True,
-        label="I accept the terms of the GNU Affero General Public License as displayed above,"
-        " and I understand that the terms that provide this software WITHOUT ANY WARRANTY;"
-        " without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.",
+        label="I accept the terms of the GNU Affero General Public License as displayed above, "
+        "and I understand that the terms that provide this software WITHOUT ANY WARRANTY; "
+        "without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.",
     )
 
     password = forms.CharField(widget=forms.PasswordInput, required=True)
-    password_confirm = forms.CharField(
-        widget=forms.PasswordInput, required=True)
+    password_confirm = forms.CharField(widget=forms.PasswordInput, required=True)
 
     understand_no_reset = forms.BooleanField(
         required=True,
-        label="I understand that there is NO PASSWORD RESET functionality once I no longer have access to Ion.",
+        label="I understand that there is NO PASSWORD RESET "
+        "functionality once I no longer have access to Ion.",
     )
 
     def clean(self):
-        cleaned_data = super(TOSForm, self).clean()
+        cleaned_data = super().clean()
         password1 = cleaned_data.get("password")
         password2 = cleaned_data.get("password_confirm")
 

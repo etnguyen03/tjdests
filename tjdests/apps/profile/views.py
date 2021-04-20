@@ -10,14 +10,18 @@ from django.views.generic import CreateView, DeleteView, UpdateView
 from tjdests.apps.authentication.decorators import require_accept_tos
 from tjdests.apps.destinations.models import Decision, TestScore
 
-from .forms import DecisionForm, ProfilePublishForm
+from ..authentication.models import User
+from .forms import ProfilePublishForm
 
 
 @login_required
 @require_accept_tos
 def profile_view(request: HttpRequest):
-    test_scores = TestScore.objects.filter(user=request.user)
-    decisions = Decision.objects.filter(user=request.user)
+    assert request.user is User
+
+    # mypy is bad.
+    test_scores = TestScore.objects.filter(user=request.user)  # type: ignore
+    decisions = Decision.objects.filter(user=request.user)  # type: ignore
 
     # A POST request would mean that the user is saving their profile publication status
     if request.method == "POST":

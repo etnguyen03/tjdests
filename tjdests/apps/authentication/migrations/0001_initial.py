@@ -25,8 +25,7 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
-                ("password", models.CharField(
-                    max_length=128, verbose_name="password")),
+                ("password", models.CharField(max_length=128, verbose_name="password")),
                 (
                     "last_login",
                     models.DateTimeField(
@@ -101,8 +100,7 @@ class Migration(migrations.Migration):
                 ("is_senior", models.BooleanField(default=False)),
                 (
                     "publish_data",
-                    models.BooleanField(
-                        default=False, verbose_name="Publish my data"),
+                    models.BooleanField(default=False, verbose_name="Publish my data"),
                 ),
                 ("biography", models.TextField(blank=True)),
             ],

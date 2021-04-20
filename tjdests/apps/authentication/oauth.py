@@ -1,14 +1,14 @@
-from django.conf import settings
 from social_core.backends.oauth import BaseOAuth2
 
+from django.conf import settings
 
-class IonOauth2(BaseOAuth2):
+
+class IonOauth2(BaseOAuth2):  # pylint: disable=abstract-method
     name = "ion"
     AUTHORIZATION_URL = "https://ion.tjhsst.edu/oauth/authorize"
     ACCESS_TOKEN_URL = "https://ion.tjhsst.edu/oauth/token"
     ACCESS_TOKEN_METHOD = "POST"
-    EXTRA_DATA = [("refresh_token", "refresh_token", True),
-                  ("expires_in", "expires")]
+    EXTRA_DATA = [("refresh_token", "refresh_token", True), ("expires_in", "expires")]
 
     def get_scope(self):
         return ["read"]
