@@ -7,11 +7,31 @@
 
     <p><b>Note</b>: All data is self-reported. We do not make any claim as to the accuracy of this data.</p>
 
+    {% if search_query %}
+        <p>
+            Only showing colleges matching {{ search_query }}.
+            Navigate <a href="{% url "destinations:colleges" %}">here</a> to reset.
+        </p>
+    {% endif %}
+
+    <div class="container pb-3">
+        <form method="get">
+            <div class="form-floating mb-3">
+                <div class="input-group">
+                    <div class="input-group-text"><i class="fas fa-search"></i></div>
+                    <input type="search" name="q" id="search" data-toggle="tooltip" data-bs-placement="bottom"
+                           title="Filter by college name, CEEB code, city, or state abbreviation" aria-label="Search"
+                           class="form-control" value="{{ search_query }}">
+                </div>
+            </div>
+        </form>
+    </div>
+
     <div class="table-responsive">
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">University Name</th>
+                    <th scope="col">University Name, Location, CEEB code</th>
                     <th scope="col">Total Applications</th>
                     <th scope="col">Admitted</th>
                     <th scope="col">Waitlisted</th>
@@ -26,7 +46,7 @@
             <tbody>
                 {% for college in object_list %}
                     <tr>
-                        <th scope="row"><a href="{% url "destinations:students" %}?college={{ college.id }}">{{ college.name }}</a></th>
+                        <th scope="row"><a href="{% url "destinations:students" %}?college={{ college.id }}">{{ college }}</a></th>
                         <td>{{ college.count_decisions }}</td>
                         <td>{{ college.count_admit }}</td>
                         <td>{{ college.count_waitlist }}</td>
