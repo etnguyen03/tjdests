@@ -1,4 +1,4 @@
-from typing import Dict, Any
+from typing import Any, Dict
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
@@ -45,27 +45,37 @@ class TestScoreForm(forms.ModelForm):
     def clean(self) -> Dict[str, Any]:
         cleaned_data = super().clean()
 
-        exam_score = int(cleaned_data.get("exam_score"))
+        exam_type = str(cleaned_data.get("exam_type"))
 
-        # ACT is 1-36
-        if cleaned_data.get("exam_type").startswith("ACT_"):
-            if not 1 <= exam_score <= 36:
-                self.add_error("exam_score", "This is not a valid ACT exam score")
+        # check if exam score is an integer
+        try:
+            exam_score = int(cleaned_data.get("exam_score"))  # type: ignore
+        except (TypeError, ValueError):
+            pass
+        else:
+            # ACT is 1-36
+            if exam_type.startswith("ACT_"):
+                if not 1 <= exam_score <= 36:
+                    self.add_error("exam_score", "This is not a valid ACT exam score")
 
-        # SAT2 and SAT EBRW/Math sections are 200-800 and mod 10
-        elif cleaned_data.get("exam_type").startswith("SAT2_") or cleaned_data.get("exam_type") in ["SAT_EBRW", "SAT_MATH"]:
-            if not 200 <= exam_score <= 800 or not exam_score % 10 == 0:
-                self.add_error("exam_score", "This is not a valid SAT section exam score")
+            # SAT2 and SAT EBRW/Math sections are 200-800 and mod 10
+            elif exam_type.startswith("SAT2_") or cleaned_data.get("exam_type") in [
+                "SAT_EBRW",
+                "SAT_MATH",
+            ]:
+                if not 200 <= exam_score <= 800 or not exam_score % 10 == 0:
+                    self.add_error(
+                        "exam_score", "This is not a valid SAT section exam score"
+                    )
 
-        # SAT total is 400-1600 mod 10
-        elif cleaned_data.get("exam_type") == "SAT_TOTAL":
-            if not 400 <= exam_score <= 1600 or not exam_score % 10 == 0:
-                self.add_error("exam_score", "This is not a valid SAT exam score")
+            # SAT total is 400-1600 mod 10
+            elif exam_type == "SAT_TOTAL":
+                if not 400 <= exam_score <= 1600 or not exam_score % 10 == 0:
+                    self.add_error("exam_score", "This is not a valid SAT exam score")
 
-        # AP is 1-5
-        if cleaned_data.get("exam_type").startswith("AP_"):
-            if not 1 <= exam_score <= 36:
-                self.add_error("exam_score", "This is not a valid AP exam score")
+            # AP is 1-5
+            if exam_type.startswith("AP_"):
+                if not 1 <= exam_score <= 36:
+                    self.add_error("exam_score", "This is not a valid AP exam score")
 
         return cleaned_data
-
