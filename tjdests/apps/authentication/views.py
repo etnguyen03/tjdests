@@ -5,12 +5,13 @@ from django.contrib.auth.views import LoginView
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
+from django.views.generic import TemplateView
 
 from tjdests.apps.authentication.forms import TOSForm
 
 
-def index_view(request: HttpRequest) -> HttpResponse:
-    return render(request, "authentication/index.html")
+class IndexView(TemplateView):
+    template_name = "authentication/index.html"
 
 
 @login_required
