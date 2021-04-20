@@ -10,16 +10,13 @@ from django.views.generic import CreateView, DeleteView, UpdateView
 from tjdests.apps.authentication.decorators import require_accept_tos
 from tjdests.apps.destinations.models import Decision, TestScore
 
-from ..authentication.models import User
 from .forms import ProfilePublishForm
 
 
 @login_required
 @require_accept_tos
 def profile_view(request: HttpRequest):
-    assert request.user is User
-
-    # mypy is bad.
+    # mypy is annoying.
     test_scores = TestScore.objects.filter(user=request.user)  # type: ignore
     decisions = Decision.objects.filter(user=request.user)  # type: ignore
 
