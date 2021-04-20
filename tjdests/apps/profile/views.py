@@ -1,3 +1,5 @@
+from typing import Any, Dict
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -10,7 +12,7 @@ from django.views.generic import CreateView, DeleteView, UpdateView
 from tjdests.apps.authentication.decorators import require_accept_tos
 from tjdests.apps.destinations.models import Decision, TestScore
 
-from .forms import ProfilePublishForm, TestScoreForm
+from .forms import DecisionForm, ProfilePublishForm, TestScoreForm
 
 
 @login_required
@@ -103,13 +105,18 @@ class DecisionCreateView(
     LoginRequiredMixin, SuccessMessageMixin, UserPassesTestMixin, CreateView
 ):
     model = Decision
-    fields = ["college", "decision_type", "admission_status"]
+    form_class = DecisionForm
     template_name = "profile/decision_form.html"
     success_message = "Decision created successfully."
 
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+
+    def get_form_kwargs(self) -> Dict[str, Any]:
+        form_kwargs = super().get_form_kwargs()
+        form_kwargs["request"] = self.request
+        return form_kwargs
 
     def test_func(self):
         return self.request.user.is_senior and self.request.user.accepted_terms
@@ -122,13 +129,19 @@ class DecisionUpdateView(
     LoginRequiredMixin, SuccessMessageMixin, UserPassesTestMixin, UpdateView
 ):
     model = Decision
-    fields = ["college", "decision_type", "admission_status"]
+    form_class = DecisionForm
     template_name = "profile/decision_form.html"
     success_message = "Decision created successfully."
 
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+
+    def get_form_kwargs(self) -> Dict[str, Any]:
+        form_kwargs = super().get_form_kwargs()
+        form_kwargs["request"] = self.request
+        form_kwargs["edit"] = True
+        return form_kwargs
 
     def get_queryset(self):
         owner = self.request.user

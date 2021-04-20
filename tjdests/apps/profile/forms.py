@@ -4,6 +4,7 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 
 from django import forms
+from django.core.exceptions import ValidationError
 
 from tjdests.apps.authentication.models import User
 from tjdests.apps.destinations.models import Decision, TestScore
@@ -35,6 +36,44 @@ class DecisionForm(forms.ModelForm):
     class Meta:
         model = Decision
         fields = ["college", "decision_type", "admission_status"]
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request", None)
+        self.is_edit = kwargs.pop("edit", False)
+        super().__init__(*args, **kwargs)
+
+    def clean(self) -> Dict[str, Any]:
+        cleaned_data = super().clean()
+
+        # Ensure that the college is not a duplicate for this user
+        # Yes, this is weird. Basically: if we are not editing
+        # (i.e. creating a new one), we make sure that
+        # the user does not have a Decision object with that college already.
+        # If we are editing, then we ensure that the college
+        # has not changed. If it has changed, then we
+        # make sure that the user does not have a Decision object with that college already.
+        if (
+            not self.is_edit
+            and Decision.objects.filter(
+                user=self.request.user, college=cleaned_data.get("college")
+            ).count()
+            > 0
+        ) or (
+            self.is_edit
+            and Decision.objects.filter(
+                user=self.request.user,
+                id=self.instance.id,
+                college=cleaned_data.get("college"),
+            ).count()
+            != 1
+            and Decision.objects.filter(
+                user=self.request.user, college=cleaned_data.get("college")
+            ).count()
+            > 0
+        ):
+            raise ValidationError("You cannot add a second entry for this college")
+
+        return cleaned_data
 
 
 class TestScoreForm(forms.ModelForm):
