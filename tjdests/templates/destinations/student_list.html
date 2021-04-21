@@ -81,16 +81,16 @@
                                             <td class="d-flex-inline">
                                                 <span class="justify-content-center d-flex pb-1" data-toggle="tooltip" title="{{ decision.get_decision_type_display }}" aria-label="{{ decision.get_decision_type_display }}">{{ decision.decision_type }}</span>
                                                 <div class="justify-content-center d-flex">
-                                                    {# First, the waitlist indicator #}
-                                                    {% if decision.admission_status == "WAITLIST" or decision.admission_status == "WAITLIST_ADMIT" or decision.admission_status == "WAITLIST_DENY" %}
-                                                        <i class="fas fa-clipboard-list ps-1" data-toggle="tooltip" title="Waitlisted" aria-label="Waitlisted"></i>
-                                                    {% endif %}
-                                                    {# Now, the deferred indicator #}
-                                                    {% if decision.admission_status == "DEFER" or decision.admission_status == "DEFER_ADMIT" or decision.admission_status == "DEFER_DENY" %}
+                                                    {# First, the deferred indicator #}
+                                                    {% if "DEFER" in decision.admission_status %}
                                                         <i class="fas fa-clock ps-1" data-toggle="tooltip" title="Deferred" aria-label="Deferred"></i>
                                                     {% endif %}
+                                                    {# Now, the waitlist indicator #}
+                                                    {% if "WAITLIST" in decision.admission_status or "WL" in decision.admission_status %}
+                                                        <i class="fas fa-clipboard-list ps-1" data-toggle="tooltip" title="Waitlisted" aria-label="Waitlisted"></i>
+                                                    {% endif %}
                                                     {# Admits #}
-                                                    {% if decision.admission_status == "ADMIT" or decision.admission_status == "WAITLIST_ADMIT" or decision.admission_status == "DEFER_ADMIT" %}
+                                                    {% if "ADMIT" in decision.admission_status %}
                                                         {# Accepts get a different check #}
                                                         {% if senior.attending_decision == decision %}
                                                             <i class="fas fa-check-double ps-1" data-toggle="tooltip" title="Accepted, attending" aria-label="Accepted, attending"></i>
@@ -99,7 +99,7 @@
                                                         {% endif %}
                                                     {% endif %}
                                                     {# Rejects #}
-                                                    {% if decision.admission_status == "DENY" or decision.admission_status == "WAITLIST_DENY" or decision.admission_status == "DEFER_DENY" %}
+                                                    {% if "DENY" in decision.admission_status %}
                                                         <i class="fas fa-times ps-1" data-toggle="tooltip" title="Denied" aria-label="Denied"></i>
                                                     {% endif %}
                                                 </div>

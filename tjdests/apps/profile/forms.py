@@ -19,12 +19,7 @@ class ProfilePublishForm(forms.ModelForm):
         self.helper.add_input(Submit("submit", "Submit"))
 
         self.fields["attending_decision"].queryset = Decision.objects.filter(
-            user=self.instance,
-            admission_status__in=[
-                Decision.ADMIT,
-                Decision.WAITLIST_ADMIT,
-                Decision.DEFER_ADMIT,
-            ],
+            user=self.instance, admission_status__contains="ADMIT"
         )
 
     class Meta:

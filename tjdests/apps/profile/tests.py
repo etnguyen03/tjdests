@@ -75,6 +75,35 @@ class ProfileTest(TJDestsTestCase):
             ).count(),
         )
 
+        # Test creating a non-admit decision, then setting that as our destination
+        college2 = College.objects.get_or_create(name="test university of alexandria")[
+            0
+        ]
+        decision2 = Decision.objects.get_or_create(
+            college=college2,
+            user=user,
+            decision_type="ED",
+            admission_status=Decision.DEFER_WL_D,
+        )[0]
+        response = self.client.post(
+            reverse("profile:index"),
+            data={
+                "biography": "hello2",
+                "attending_decision": decision2.id,
+                "publish_data": True,
+            },
+        )
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(
+            1,
+            User.objects.filter(
+                id=user.id,
+                biography="hello2",
+                attending_decision=decision,
+                publish_data=True,
+            ).count(),
+        )
+
     def test_testscore_create(self):
         """Tests creating test scores."""
 

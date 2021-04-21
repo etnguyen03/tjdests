@@ -43,6 +43,8 @@ class Decision(models.Model):
     WAITLIST = "WAITLIST"
     DEFER_ADMIT = "DEFER_ADMIT"
     DEFER_DENY = "DEFER_DENY"
+    DEFER_WL_A = "DEFER_WAITLIST_ADMIT"
+    DEFER_WL_D = "DEFER_WAITLIST_DENY"
     DEFER = "DEFER"
     DENY = "DENY"
 
@@ -54,6 +56,8 @@ class Decision(models.Model):
         (DEFER, "Deferred"),
         (DEFER_ADMIT, "Deferred-Admitted"),
         (DEFER_DENY, "Deferred-Denied"),
+        (DEFER_WL_A, "Deferred-Waitlisted-Admitted"),
+        (DEFER_WL_D, "Deferred-Waitlisted-Denied"),
         (DENY, "Denied"),
     ]
 
