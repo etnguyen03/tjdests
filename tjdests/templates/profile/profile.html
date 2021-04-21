@@ -19,47 +19,47 @@
     <div class="container">
         {% if request.user.is_senior %}
             <div class="pt-3 pb-3">
-                    <a href="{% url "profile:decision_add" %}" class="btn btn-outline-primary">Add decision</a>
-                </div>
+                <a href="{% url "profile:decision_add" %}" class="btn btn-outline-primary">Add decision</a>
+            </div>
 
-                <p>Your current decisions are:</p>
+            <p>Your current decisions are:</p>
 
-                <table class="table">
-                    <thead>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">University Name</th>
+                        <th scope="col">Admissions Round</th>
+                        <th scope="col">Result</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for decision in decisions_list %}
                         <tr>
-                            <th scope="col">University Name</th>
-                            <th scope="col">Admissions Round</th>
-                            <th scope="col">Result</th>
-                            <th scope="col"></th>
+                            <td>{{ decision.college.name }}</td>
+                            <td>{{ decision.get_decision_type_display }}</td>
+                            <td>{{ decision.get_admission_status_display }}{% if request.user.attending_decision == decision %}, Attending{% endif %}</td>
+                            <td>
+                                {# edit button #}
+                                <a href="{% url "profile:decision_edit" decision.id %}" class="btn btn-outline-warning" aria-label="Edit">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </a>
+                                {# delete #}
+                                <a href="{% url "profile:decision_delete" decision.id %}" class="btn btn-outline-danger" aria-label="Delete">
+                                    <i class="far fa-trash-alt"></i>
+                                </a>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        {% for decision in decisions_list %}
-                            <tr>
-                                <td>{{ decision.college.name }}</td>
-                                <td>{{ decision.get_decision_type_display }}</td>
-                                <td>{{ decision.get_admission_status_display }}{% if request.user.attending_decision == decision %}, Attending{% endif %}</td>
-                                <td>
-                                    {# edit button #}
-                                    <a href="{% url "profile:decision_edit" decision.id %}" class="btn btn-outline-warning" aria-label="Edit">
-                                        <i class="fas fa-pencil-alt"></i>
-                                    </a>
-                                    {# delete #}
-                                    <a href="{% url "profile:decision_delete" decision.id %}" class="btn btn-outline-danger" aria-label="Delete">
-                                        <i class="far fa-trash-alt"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        {% empty %}
-                            <tr>
-                                <td>There is no data to display.</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                    {% empty %}
+                        <tr>
+                            <td>There is no data to display.</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         {% else %}
             <p>You are not a senior, therefore you cannot add decisions.</p>
         {% endif %}
