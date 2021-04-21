@@ -19,9 +19,9 @@
         <form method="get">
             <div class="form-floating mb-3">
                 <div class="input-group">
-                    <div class="input-group-text"><i class="fas fa-search"></i></div>
+                    <div class="input-group-text"><label for="search"><i class="fas fa-search" aria-label="Search"></i></label></div>
                     {% if college %}<input type="hidden" name="college" value="{{ college.id }}">{% endif %}
-                    <input type="search" name="q" id="search" data-toggle="tooltip" data-bs-placement="bottom" title="Filter by first name, last name, and biography" aria-label="Search" class="form-control" value="{{ search_query }}">
+                    <input type="search" name="q" placeholder="Search" id="search" data-toggle="tooltip" data-bs-placement="bottom" title="Filter by first name, last name, and biography" aria-label="Search" class="form-control" value="{{ search_query }}">
                 </div>
             </div>
         </form>

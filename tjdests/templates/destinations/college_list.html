@@ -18,10 +18,10 @@
         <form method="get">
             <div class="form-floating mb-3">
                 <div class="input-group">
-                    <div class="input-group-text"><i class="fas fa-search"></i></div>
+                    <div class="input-group-text"><label for="search"><i class="fas fa-search" aria-label="Search"></i></label></div>
                     <input type="search" name="q" id="search" data-toggle="tooltip" data-bs-placement="bottom"
                            title="Filter by college name, CEEB code, city, or state abbreviation" aria-label="Search"
-                           class="form-control" value="{{ search_query }}">
+                           class="form-control" placeholder="Search" value="{{ search_query }}">
                 </div>
             </div>
         </form>
