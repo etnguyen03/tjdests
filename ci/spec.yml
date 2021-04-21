@@ -75,6 +75,9 @@ jobs:
       - name: Run test suite
         run: pipenv run coverage run ./manage.py test
 
+      - name: migrate database
+        run: pipenv run ./manage.py migrate
+
       - name: Report coverage to Coveralls
         uses: AndreMiras/coveralls-python-action@develop
         with:
