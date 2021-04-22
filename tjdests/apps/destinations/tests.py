@@ -188,6 +188,9 @@ class DestinationsTest(TJDestsTestCase):
         self.assertEqual(0, response.context["object_list"][0].count_defer)
         self.assertEqual(0, response.context["object_list"][0].count_defer_admit)
         self.assertEqual(0, response.context["object_list"][0].count_defer_deny)
+        self.assertEqual(0, response.context["object_list"][0].count_defer_wl)
+        self.assertEqual(0, response.context["object_list"][0].count_defer_wl_admit)
+        self.assertEqual(0, response.context["object_list"][0].count_defer_wl_deny)
         self.assertEqual(0, response.context["object_list"][0].count_deny)
 
         # Add another decision under a different user but the same college
@@ -217,6 +220,9 @@ class DestinationsTest(TJDestsTestCase):
         self.assertEqual(0, response.context["object_list"][0].count_defer)
         self.assertEqual(0, response.context["object_list"][0].count_defer_admit)
         self.assertEqual(0, response.context["object_list"][0].count_defer_deny)
+        self.assertEqual(0, response.context["object_list"][0].count_defer_wl)
+        self.assertEqual(0, response.context["object_list"][0].count_defer_wl_admit)
+        self.assertEqual(0, response.context["object_list"][0].count_defer_wl_deny)
         self.assertEqual(0, response.context["object_list"][0].count_deny)
 
         # Add another decision for user2 under a different college

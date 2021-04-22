@@ -40,6 +40,7 @@
                     <th scope="col">Deferred</th>
                     <th scope="col">Deferred-Admitted</th>
                     <th scope="col">Deferred-Denied</th>
+                    <th scope="col">Deferred-Waitlisted</th>
                     <th scope="col">Deferred-Waitlisted-Admitted</th>
                     <th scope="col">Deferred-Waitlisted-Denied</th>
                     <th scope="col">Denied</th>
@@ -57,6 +58,7 @@
                         <td>{{ college.count_defer }}</td>
                         <td>{{ college.count_defer_admit }}</td>
                         <td>{{ college.count_defer_deny }}</td>
+                        <td>{{ college.count_defer_wl }}</td>
                         <td>{{ college.count_defer_wl_admit }}</td>
                         <td>{{ college.count_defer_wl_deny }}</td>
                         <td>{{ college.count_deny }}</td>
@@ -64,6 +66,7 @@
                 {% empty %}
                     <tr>
                         <td>There is no data to display.</td>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>

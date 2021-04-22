@@ -125,6 +125,13 @@ class CollegeDestinationListView(
                         decision__user__publish_data=True,
                     ),
                 ),
+                count_defer_wl=Count(
+                    "decision",
+                    filter=Q(
+                        decision__admission_status=Decision.DEFER_WL,
+                        decision__user__publish_data=True,
+                    ),
+                ),
                 count_defer_wl_admit=Count(
                     "decision",
                     filter=Q(
