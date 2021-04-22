@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.core.exceptions import PermissionDenied
 from django.db.models import Count, Q, QuerySet
 from django.shortcuts import get_object_or_404
 from django.views.generic import ListView
@@ -14,9 +15,16 @@ class StudentDestinationListView(
     paginate_by = 20
 
     def get_queryset(self):
-        queryset = User.objects.filter(publish_data=True, is_senior=True).order_by(
-            "last_name", "first_name"
-        )
+        # Superusers can use the "all" GET parameter to see all data
+        if self.request.GET.get("all", None) is not None:
+            if self.request.user.is_superuser and self.request.user.is_staff:
+                queryset = User.objects.all()
+            else:
+                raise PermissionDenied()
+        else:
+            queryset = User.objects.filter(publish_data=True)
+
+        queryset = queryset.filter(is_senior=True).order_by("last_name", "first_name")
 
         college_id = self.request.GET.get("college", None)
         if college_id is not None:

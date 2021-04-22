@@ -72,6 +72,32 @@ class DestinationsTest(TJDestsTestCase):
             user2, response.context["object_list"]
         )  # haven't published data
 
+        # Check superuser "all" get parameter
+        # We are not a superuser, so this should 403.
+        response = self.client.get(reverse("destinations:students"), data={"all": True})
+        self.assertEqual(403, response.status_code)
+
+        # Make us a superuser.
+        user2.is_superuser = True
+        user2.is_staff = True
+        user2.save()
+
+        response = self.client.get(reverse("destinations:students"))
+        self.assertEqual(200, response.status_code)
+        self.assertIn(user, response.context["object_list"])
+        self.assertNotIn(user2, response.context["object_list"])
+
+        # with the "all" parameter, this should return with user2 and user
+        response = self.client.get(reverse("destinations:students"), data={"all": True})
+        self.assertEqual(200, response.status_code)
+        self.assertIn(user, response.context["object_list"])
+        self.assertIn(user2, response.context["object_list"])
+        self.assertIn(user, response.context["object_list"])
+
+        user2.is_superuser = False
+        user2.is_staff = False
+        user2.save()
+
         user2.publish_data = True
         user2.save()
 
