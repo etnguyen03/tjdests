@@ -12,9 +12,11 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import logging
 import os
 from pathlib import Path
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 from typing import List
 
+from django.contrib.messages import constants as messages
+
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -156,6 +158,10 @@ LOGIN_URL = "authentication:login"
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+MESSAGE_TAGS = {
+    messages.ERROR: "danger",
+}
 
 try:
     from .secret import *  # noqa  # pylint: disable=unused-import
