@@ -69,7 +69,7 @@
                     <div class="col">
                         {% for message in messages %}
                             <div class="alert alert-{{ message.tags }}" role="alert">
-                                <p>{{ message }}</p>
+                                {{ message }}
                             </div>
                         {% endfor %}
                     </div>
