@@ -19,7 +19,7 @@ class User(AbstractUser):
         verbose_name="Publish my data",
         help_text="Unless this is set, your data will not appear publicly.",
     )
-    biography = models.TextField(blank=True, max_length=1000)
+    biography = models.TextField(blank=True, max_length=1500)
 
     attending_decision = models.ForeignKey(
         Decision,
