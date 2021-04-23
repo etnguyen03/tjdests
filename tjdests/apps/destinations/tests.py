@@ -285,7 +285,8 @@ class DestinationsTest(TJDestsTestCase):
         file_contents = (
             "CEEB,College Name,City,State\n"
             "1234,Test University,Alexandria,VA\n"
-            "1235,University of Test,Arlington,VA"
+            "1235,University of Test,Arlington,VA\n"
+            "INTL,University of Abroad,ExampleCity,RANDOMCOUNTRY"
         )
         with patch(
             "tjdests.apps.destinations.management.commands.import_ceeb.open",
@@ -307,8 +308,19 @@ class DestinationsTest(TJDestsTestCase):
                 ceeb_code="1235", name="University of Test", location="Arlington, VA"
             ).count(),
         )
+        self.assertEqual(1, College.objects.filter(ceeb_code="INTL", name="University of Abroad", location="ExampleCity, RANDOMCOUNTRY").count())
 
         # Doing it again should have no duplicates
+        # But let's add a few more...
+
+        file_contents = (
+            "CEEB,College Name,City,State\n"
+            "1234,Test University,Alexandria,VA\n"
+            "1235,University of Test,Arlington,VA\n"
+            "INTL,University of Abroad,ExampleCity,RANDOMCOUNTRY\n"
+            "INTL,University of Abroad in CityTwo,CityTwo,RANDOMCOUNTRY\n"
+        )
+
         with patch(
             "tjdests.apps.destinations.management.commands.import_ceeb.open",
             mock_open(read_data=file_contents),
@@ -329,3 +341,5 @@ class DestinationsTest(TJDestsTestCase):
                 ceeb_code="1235", name="University of Test", location="Arlington, VA"
             ).count(),
         )
+        self.assertEqual(1, College.objects.filter(ceeb_code="INTL", name="University of Abroad", location="ExampleCity, RANDOMCOUNTRY").count())
+        self.assertEqual(1, College.objects.filter(ceeb_code="INTL", name="University of Abroad in CityTwo", location="CityTwo, RANDOMCOUNTRY").count())

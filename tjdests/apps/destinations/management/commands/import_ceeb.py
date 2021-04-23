@@ -21,13 +21,24 @@ class Command(BaseCommand):
             reader = csv.DictReader(file)
 
             for line in reader:
-                result = College.objects.update_or_create(
-                    ceeb_code=line["CEEB"],
-                    defaults={
-                        "name": line["College Name"],
-                        "location": f"{line['City']}, {line['State']}",
-                    },
-                )
+                # International colleges are treated specially because
+                # they do not have CEEB codes.
+                if line["CEEB"] == "INTL":
+                    result = College.objects.update_or_create(
+                        ceeb_code=line["CEEB"],
+                        name=line["College Name"],
+                        defaults={
+                            "location": f"{line['City']}, {line['State']}",
+                        },
+                    )
+                else:
+                    result = College.objects.update_or_create(
+                        ceeb_code=line["CEEB"],
+                        defaults={
+                            "name": line["College Name"],
+                            "location": f"{line['City']}, {line['State']}",
+                        },
+                    )
 
                 if result[1]:
                     self.stdout.write(
