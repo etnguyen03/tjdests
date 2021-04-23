@@ -308,7 +308,14 @@ class DestinationsTest(TJDestsTestCase):
                 ceeb_code="1235", name="University of Test", location="Arlington, VA"
             ).count(),
         )
-        self.assertEqual(1, College.objects.filter(ceeb_code="INTL", name="University of Abroad", location="ExampleCity, RANDOMCOUNTRY").count())
+        self.assertEqual(
+            1,
+            College.objects.filter(
+                ceeb_code="INTL",
+                name="University of Abroad",
+                location="ExampleCity, RANDOMCOUNTRY",
+            ).count(),
+        )
 
         # Doing it again should have no duplicates
         # But let's add a few more...
@@ -341,5 +348,19 @@ class DestinationsTest(TJDestsTestCase):
                 ceeb_code="1235", name="University of Test", location="Arlington, VA"
             ).count(),
         )
-        self.assertEqual(1, College.objects.filter(ceeb_code="INTL", name="University of Abroad", location="ExampleCity, RANDOMCOUNTRY").count())
-        self.assertEqual(1, College.objects.filter(ceeb_code="INTL", name="University of Abroad in CityTwo", location="CityTwo, RANDOMCOUNTRY").count())
+        self.assertEqual(
+            1,
+            College.objects.filter(
+                ceeb_code="INTL",
+                name="University of Abroad",
+                location="ExampleCity, RANDOMCOUNTRY",
+            ).count(),
+        )
+        self.assertEqual(
+            1,
+            College.objects.filter(
+                ceeb_code="INTL",
+                name="University of Abroad in CityTwo",
+                location="CityTwo, RANDOMCOUNTRY",
+            ).count(),
+        )
