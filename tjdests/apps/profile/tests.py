@@ -448,7 +448,12 @@ class ProfileTest(TJDestsTestCase):
             },
         )
         self.assertEqual(302, response.status_code)
-        self.assertEqual(1, Decision.objects.filter(college=college, user=user, admission_status=Decision.WAITLIST).count())
+        self.assertEqual(
+            1,
+            Decision.objects.filter(
+                college=college, user=user, admission_status=Decision.WAITLIST
+            ).count(),
+        )
 
     def test_decision_update(self):
         user = self.login(make_senior=True, make_student=True, accept_tos=True)

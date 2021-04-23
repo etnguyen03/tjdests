@@ -73,9 +73,14 @@ class DecisionForm(forms.ModelForm):
             raise ValidationError("You cannot add a second entry for this college")
 
         # Rolling and RD decisions cannot be deferred
-        if cleaned_data.get("decision_type") in [Decision.REGULAR_DECISION, Decision.ROLLING]:
-            if "DEFER" in cleaned_data.get("admission_status"):
-                raise ValidationError("Regular Decision and Rolling decisions cannot result in a deferral")
+        if cleaned_data.get("decision_type") in [
+            Decision.REGULAR_DECISION,
+            Decision.ROLLING,
+        ]:
+            if "DEFER" in cleaned_data.get("admission_status", ""):
+                raise ValidationError(
+                    "Regular Decision and Rolling decisions cannot result in a deferral"
+                )
 
         return cleaned_data
 
