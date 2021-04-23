@@ -426,6 +426,30 @@ class ProfileTest(TJDestsTestCase):
         self.assertEqual(200, response.status_code)
         self.assertEqual(1, Decision.objects.filter(college=college, user=user).count())
 
+        # No deferrals for RD and rolling
+        Decision.objects.all().delete()
+        response = self.client.post(
+            reverse("profile:decision_add"),
+            data={
+                "college": college.id,
+                "decision_type": "RD",
+                "admission_status": "DEFER_WAITLIST_ADMIT",
+            },
+        )
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(0, Decision.objects.filter(college=college, user=user).count())
+
+        response = self.client.post(
+            reverse("profile:decision_add"),
+            data={
+                "college": college.id,
+                "decision_type": "RD",
+                "admission_status": "WAITLIST",
+            },
+        )
+        self.assertEqual(302, response.status_code)
+        self.assertEqual(1, Decision.objects.filter(college=college, user=user, admission_status=Decision.WAITLIST).count())
+
     def test_decision_update(self):
         user = self.login(make_senior=True, make_student=True, accept_tos=True)
 
