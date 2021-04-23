@@ -11,6 +11,9 @@ class College(models.Model):
     def __str__(self):
         return f"{self.name} - {self.location} ({self.ceeb_code})"
 
+    class Meta:
+        ordering = ["name"]
+
 
 class Decision(models.Model):
     """Represents a college decision."""
