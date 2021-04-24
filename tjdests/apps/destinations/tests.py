@@ -134,6 +134,21 @@ class DestinationsTest(TJDestsTestCase):
         self.assertIn(user, response.context["object_list"])
         self.assertNotIn(user2, response.context["object_list"])
 
+        # Non alphanumeric should 404
+        response = self.client.get(
+            reverse("destinations:students"), data={"college": str(college.id) + "f"}
+        )
+        self.assertEqual(404, response.status_code)
+
+        # Non existent should 404
+        # sanity check
+        assert College.objects.filter(id=college.id + 5).count() == 0
+
+        response = self.client.get(
+            reverse("destinations:students"), data={"college": college.id + 5}
+        )
+        self.assertEqual(404, response.status_code)
+
         response = self.client.get(
             reverse("destinations:students"), data={"college": college2.id}
         )

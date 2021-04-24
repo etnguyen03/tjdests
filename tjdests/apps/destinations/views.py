@@ -1,6 +1,9 @@
+from typing import Optional
+
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import PermissionDenied
 from django.db.models import Count, Q, QuerySet
+from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.views.generic import ListView
 
@@ -26,8 +29,11 @@ class StudentDestinationListView(
 
         queryset = queryset.filter(is_senior=True).order_by("last_name", "first_name")
 
-        college_id = self.request.GET.get("college", None)
+        college_id: Optional[str] = self.request.GET.get("college", None)
         if college_id is not None:
+            if not college_id.isdigit():
+                raise Http404()
+
             get_object_or_404(College, id=college_id)
             queryset = queryset.filter(decision__college__id=college_id)
 
@@ -46,7 +52,7 @@ class StudentDestinationListView(
     ):  # pylint: disable=unused-argument
         context = super().get_context_data(**kwargs)
 
-        college_id = self.request.GET.get("college", None)
+        college_id: Optional[str] = self.request.GET.get("college", None)
         if college_id is not None:
             context["college"] = get_object_or_404(College, id=college_id)
 
