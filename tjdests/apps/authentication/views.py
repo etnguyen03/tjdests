@@ -49,7 +49,3 @@ def accept_tos_view(request: HttpRequest) -> HttpResponse:
     context = {"form": form}
 
     return render(request, "authentication/accept_tos.html", context=context)
-
-
-class LoginViewCustom(LoginView):
-    template_name = "authentication/login.html"
