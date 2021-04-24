@@ -69,6 +69,8 @@ class Decision(models.Model):
     admission_status = models.CharField(max_length=20, choices=ADMIT_TYPE_CHOICES)
     college = models.ForeignKey(College, on_delete=models.CASCADE)
 
+    last_modified = models.DateTimeField(auto_now=True)
+
     def __str__(self):
         return (
             f"{self.college.name} - {self.get_decision_type_display()}: "
@@ -226,6 +228,8 @@ class TestScore(models.Model):
 
     exam_type = models.CharField(max_length=20, choices=TEST_TYPES, null=False)
     exam_score = models.PositiveSmallIntegerField(null=False)
+
+    last_modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"{self.get_exam_type_display()}: {self.exam_score}"
