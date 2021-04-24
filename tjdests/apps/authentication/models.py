@@ -31,5 +31,7 @@ class User(AbstractUser):
         help_text="Can't see your college? Make sure you've added a decision with an admit status.",
     )
 
+    last_modified = models.DateTimeField(auto_now=True)
+
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
