@@ -4,7 +4,6 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 
 from django import forms
-from django.core.exceptions import ValidationError
 
 from tjdests.apps.authentication.models import User
 from tjdests.apps.destinations.models import Decision, TestScore
@@ -78,7 +77,10 @@ class DecisionForm(forms.ModelForm):
             Decision.ROLLING,
         ]:
             if "DEFER" in cleaned_data.get("admission_status", ""):
-                self.add_error("admission_status", "Regular Decision and Rolling decisions cannot result in a deferral")
+                self.add_error(
+                    "admission_status",
+                    "Regular Decision and Rolling decisions cannot result in a deferral",
+                )
 
         return cleaned_data
 
