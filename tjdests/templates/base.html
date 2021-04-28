@@ -12,13 +12,14 @@
         <script src="{% static "bootstrap.bundle.min.js" %}" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"></script>
 
         <script src="{% static "jquery.min.js" %}" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="></script>
-        <script src="{% static "selectize.js" %}" integrity="sha512-pF+DNRwavWMukUv/LyzDyDMn8U2uvqYQdJN0Zvilr6DDo/56xPDZdDoyPDYZRSL4aOKO/FGKXTpzDyQJ8je8Qw=="></script>
-        <link rel="stylesheet" href="{% static "selectize.bootstrap4.min.css" %}" integrity="sha512-MMojOrCQrqLg4Iarid2YMYyZ7pzjPeXKRvhW9nZqLo6kPBBTuvNET9DBVWptAo/Q20Fy11EIHM5ig4WlIrJfQw==" />
+
+        <script src="{% static "tom-select.complete.min.js" %}" integrity="sha384-Hnof5Csstpcrk+thlHZ8VXXkD/Wk96gkCvwIvpwYLBVIAPyQA3gkqcPO+RwLARmZ"></script>
+        <link rel="stylesheet" href="{% static "tom-select.bootstrap5.css" %}" integrity="sha384-3syGtcTzvEB6zjzJ4BQ2loMdsaYaxAjWjD3GcbCLAPAE2XkENSR94WcY8c3g5lNu" />
 
         <script>
             $(document).ready(function(){
                 $("select").each(function(){
-                    $(this).selectize();
+                    new TomSelect("#" + this.id, {allowEmptyOption: true, "plugins": ["change_listener"]});
                 });
                 $(function () {
                   $('[data-toggle="tooltip"]').tooltip()
