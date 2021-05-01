@@ -192,7 +192,7 @@ class ProfileTest(TJDestsTestCase):
         self.assertEqual(
             0,
             TestScore.objects.filter(
-                user=user, exam_type="ACT_COMP", exam_score=3.6
+                user=user, exam_type="ACT_COMP", exam_score=3.6  # type: ignore
             ).count(),
         )
 
@@ -270,7 +270,7 @@ class ProfileTest(TJDestsTestCase):
         self.assertEqual(
             0,
             TestScore.objects.filter(
-                user=user, exam_type="AP_CSA", exam_score=3.6
+                user=user, exam_type="AP_CSA", exam_score=3.6  # type: ignore
             ).count(),
         )
 

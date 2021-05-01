@@ -32,4 +32,4 @@ for cmd in flake8 isort mypy pylint; do
     fi
 done
 
-flake8 tjdests && isort --check tjdests && mypy tjdests && pylint tjdests
+flake8 tjdests && isort --check tjdests && mypy --check tjdests && pylint tjdests

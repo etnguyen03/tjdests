@@ -63,6 +63,7 @@ class StudentDestinationListView(
         return context
 
     def test_func(self):
+        assert self.request.user.is_authenticated
         return self.request.user.accepted_terms
 
     template_name = "destinations/student_list.html"
@@ -186,6 +187,7 @@ class CollegeDestinationListView(
         return context
 
     def test_func(self):
+        assert self.request.user.is_authenticated
         return self.request.user.accepted_terms
 
     template_name = "destinations/college_list.html"

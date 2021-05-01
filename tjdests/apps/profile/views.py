@@ -54,6 +54,7 @@ class TestScoreCreateView(
         return super().form_valid(form)
 
     def test_func(self):
+        assert self.request.user.is_authenticated
         return self.request.user.is_senior and self.request.user.accepted_terms
 
     def get_success_url(self):
@@ -73,10 +74,12 @@ class TestScoreUpdateView(
         return super().form_valid(form)
 
     def get_queryset(self):
+        assert self.request.user.is_authenticated
         owner = self.request.user
         return self.model.objects.filter(user=owner)
 
     def test_func(self):
+        assert self.request.user.is_authenticated
         return self.request.user.is_senior and self.request.user.accepted_terms
 
     def get_success_url(self):
@@ -91,10 +94,12 @@ class TestScoreDeleteView(
     success_message = "Test score deleted successfully."
 
     def get_queryset(self):
+        assert self.request.user.is_authenticated
         owner = self.request.user
         return self.model.objects.filter(user=owner)
 
     def test_func(self):
+        assert self.request.user.is_authenticated
         return self.request.user.is_senior and self.request.user.accepted_terms
 
     def get_success_url(self):
@@ -119,6 +124,7 @@ class DecisionCreateView(
         return form_kwargs
 
     def test_func(self):
+        assert self.request.user.is_authenticated
         return self.request.user.is_senior and self.request.user.accepted_terms
 
     def get_success_url(self):
@@ -144,10 +150,12 @@ class DecisionUpdateView(
         return form_kwargs
 
     def get_queryset(self):
+        assert self.request.user.is_authenticated
         owner = self.request.user
         return self.model.objects.filter(user=owner)
 
     def test_func(self):
+        assert self.request.user.is_authenticated
         return self.request.user.is_senior and self.request.user.accepted_terms
 
     def get_success_url(self):
@@ -162,10 +170,12 @@ class DecisionDeleteView(
     success_message = "Decision deleted successfully."
 
     def get_queryset(self):
+        assert self.request.user.is_authenticated
         owner = self.request.user
         return self.model.objects.filter(user=owner)
 
     def test_func(self):
+        assert self.request.user.is_authenticated
         return self.request.user.is_senior and self.request.user.accepted_terms
 
     def get_success_url(self):

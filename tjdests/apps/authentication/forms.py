@@ -43,6 +43,15 @@ class TOSForm(forms.Form):
                 }
             )
 
+        if password1 is None:
+            raise forms.ValidationError(
+                {
+                    "password": [
+                        "You must provide a password.",
+                    ]
+                }
+            )
+
         # Validate checkboxes checked
         accept_tos = cleaned_data.get("accept_tos")
         understand_no_reset = cleaned_data.get("understand_no_reset")
