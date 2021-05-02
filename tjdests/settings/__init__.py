@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import logging
 import os
 from pathlib import Path
-from typing import List
+from typing import List, Optional
 
 from django.contrib.messages import constants as messages
 
@@ -162,6 +162,11 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 MESSAGE_TAGS = {
     messages.ERROR: "danger",
 }
+
+# Override the following in secret.py
+SENIOR_GRAD_YEAR: int = -1
+BRANDING_NAME: str = "UNDEFINED"
+GLOBAL_MESSAGE: Optional[str] = None
 
 try:
     from .secret import *  # noqa  # pylint: disable=unused-import

@@ -1,7 +1,7 @@
-# Deployed senior graduation year
-# e.g. if deploying in spring 2021, then 2021
 from typing import List
 
+# Deployed senior graduation year
+# e.g. if deploying in spring 2021, then 2021
 SENIOR_GRAD_YEAR = 2021
 
 # Branding name
