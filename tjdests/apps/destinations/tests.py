@@ -222,6 +222,7 @@ class DestinationsTest(TJDestsTestCase):
         self.assertEqual(1, response.context["object_list"].count())
         self.assertIn(college, response.context["object_list"])
         self.assertEqual(1, response.context["object_list"][0].count_decisions)
+        self.assertEqual(0, response.context["object_list"][0].count_attending)
         self.assertEqual(1, response.context["object_list"][0].count_admit)
         self.assertEqual(0, response.context["object_list"][0].count_waitlist)
         self.assertEqual(0, response.context["object_list"][0].count_waitlist_admit)
@@ -242,17 +243,40 @@ class DestinationsTest(TJDestsTestCase):
             make_senior=True,
             publish_data=True,
         )
-        Decision.objects.get_or_create(
+        decision = Decision.objects.get_or_create(
             college=college,
             user=user2,
             decision_type="ED",
             admission_status="WAITLIST_DENY",
-        )
+        )[0]
 
         response = self.client.get(reverse("destinations:colleges"))
         self.assertEqual(200, response.status_code)
         self.assertEqual(1, response.context["object_list"].count())
         self.assertIn(college, response.context["object_list"])
+        self.assertEqual(0, response.context["object_list"][0].count_attending)
+        self.assertEqual(2, response.context["object_list"][0].count_decisions)
+        self.assertEqual(1, response.context["object_list"][0].count_admit)
+        self.assertEqual(0, response.context["object_list"][0].count_waitlist)
+        self.assertEqual(0, response.context["object_list"][0].count_waitlist_admit)
+        self.assertEqual(1, response.context["object_list"][0].count_waitlist_deny)
+        self.assertEqual(0, response.context["object_list"][0].count_defer)
+        self.assertEqual(0, response.context["object_list"][0].count_defer_admit)
+        self.assertEqual(0, response.context["object_list"][0].count_defer_deny)
+        self.assertEqual(0, response.context["object_list"][0].count_defer_wl)
+        self.assertEqual(0, response.context["object_list"][0].count_defer_wl_admit)
+        self.assertEqual(0, response.context["object_list"][0].count_defer_wl_deny)
+        self.assertEqual(0, response.context["object_list"][0].count_deny)
+
+        # make user2 attend this college
+        user2.attending_decision = decision
+        user2.save()
+
+        response = self.client.get(reverse("destinations:colleges"))
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(1, response.context["object_list"].count())
+        self.assertIn(college, response.context["object_list"])
+        self.assertEqual(1, response.context["object_list"][0].count_attending)
         self.assertEqual(2, response.context["object_list"][0].count_decisions)
         self.assertEqual(1, response.context["object_list"][0].count_admit)
         self.assertEqual(0, response.context["object_list"][0].count_waitlist)

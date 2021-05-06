@@ -91,6 +91,15 @@ class CollegeDestinationListView(
                 count_decisions=Count(
                     "decision", filter=Q(decision__user__publish_data=True)
                 ),
+                count_attending=Count(
+                    "decision",
+                    filter=Q(
+                        decision__in=Decision.objects.filter(
+                            attending_college__isnull=False
+                        ),
+                        decision__user__publish_data=True,
+                    ),
+                ),
                 count_admit=Count(
                     "decision",
                     filter=Q(
