@@ -17,10 +17,10 @@ whitenoise = "~=5.2.0"
 
 [dev-packages]
 autopep8 = "~=1.5.7"
-black = "==21.5b0"
+black = "==21.5b1"
 coverage = "~=5.5"
 django-stubs = "~=1.8.0"
-flake8 = "~=3.9.1"
+flake8 = "~=3.9.2"
 isort = "~=5.8.0"
 mypy = "~=0.812"
 pylint = "~=2.8.2"
