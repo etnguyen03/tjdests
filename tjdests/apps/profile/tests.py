@@ -455,6 +455,37 @@ class ProfileTest(TJDestsTestCase):
             ).count(),
         )
 
+        # Test adding an early-decision decision and receiving admittance
+        Decision.objects.all().delete()
+        response = self.client.post(
+            reverse("profile:decision_add"),
+            data={
+                "college": college.id,
+                "decision_type": "ED",
+                "admission_status": "ADMIT",
+            },
+        )
+        self.assertEqual(302, response.status_code)
+        self.assertEqual(
+            1,
+            Decision.objects.filter(
+                college=college,
+                user=user,
+                admission_status=Decision.ADMIT,
+                decision_type=Decision.EARLY_DECISION,
+            ).count(),
+        )
+        # The user's attending college should be set to the one just added
+        self.assertEqual(
+            User.objects.get(id=user.id).attending_decision,
+            Decision.objects.get(
+                college=college,
+                user=user,
+                admission_status=Decision.ADMIT,
+                decision_type=Decision.EARLY_DECISION,
+            ),
+        )
+
     def test_decision_update(self):
         user = self.login(make_senior=True, make_student=True, accept_tos=True)
 
