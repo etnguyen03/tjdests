@@ -4,6 +4,7 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 
 from django import forms
+from django.contrib import messages
 
 from tjdests.apps.authentication.models import User
 from tjdests.apps.destinations.models import Decision, TestScore
@@ -83,6 +84,25 @@ class DecisionForm(forms.ModelForm):
                 )
 
         return cleaned_data
+
+    def save(self, commit: bool = True) -> Any:
+        super().save(commit=commit)
+
+        # Check if this is an early decision
+        if self.instance.decision_type in [
+            Decision.EARLY_DECISION,
+            Decision.EARLY_DECISION_2,
+        ]:
+            if self.instance.admission_status == Decision.ADMIT:
+                self.request.user.attending_decision = self.instance
+                self.request.user.save()
+
+                messages.info(
+                    self.request,
+                    "You have reported admission on an early decision application; "
+                    "therefore, your profile has been updated to indicate "
+                    f"that you are attending {self.instance.college}.",
+                )
 
 
 class TestScoreForm(forms.ModelForm):
