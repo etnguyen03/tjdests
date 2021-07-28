@@ -58,6 +58,7 @@ class DestinationsTest(TJDestsTestCase):
         )
         user2.first_name = "Adam"
         user2.last_name = "William"
+        user2.nickname = "John"
         user2.save()
 
         college2 = College.objects.get_or_create(name="university of test")[0]
@@ -114,7 +115,14 @@ class DestinationsTest(TJDestsTestCase):
         self.assertIn(user, response.context["object_list"])
         self.assertNotIn(user2, response.context["object_list"])
 
+        # Adam "John" William should show up when searching "Adam", his first name...
         response = self.client.get(reverse("destinations:students"), data={"q": "Adam"})
+        self.assertEqual(200, response.status_code)
+        self.assertNotIn(user, response.context["object_list"])
+        self.assertIn(user2, response.context["object_list"])
+
+        # ...and he should show up when searching "John", his middle name
+        response = self.client.get(reverse("destinations:students"), data={"q": "John"})
         self.assertEqual(200, response.status_code)
         self.assertNotIn(user, response.context["object_list"])
         self.assertIn(user2, response.context["object_list"])

@@ -4,7 +4,7 @@
 
 {% block content %}
     <h2>Profile</h2>
-    <p>You are {{ request.user.username }}, {{ request.user.first_name }} {{ request.user.last_name }}.</p>
+    <p>You are {{ request.user.username }}, {{ request.user.preferred_name }} {{ request.user.last_name }}.</p>
 
     <h4>Data Publication, College Attending, Biography</h4>
     <div class="container">

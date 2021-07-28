@@ -13,6 +13,8 @@ class User(AbstractUser):
     is_senior = models.BooleanField(default=False)
     is_student = models.BooleanField(default=False)
 
+    nickname = models.CharField(max_length=30, blank=True)
+
     # The rest are used only if a senior
     publish_data = models.BooleanField(
         default=False,
@@ -33,5 +35,9 @@ class User(AbstractUser):
 
     last_modified = models.DateTimeField(auto_now=True)
 
+    @property
+    def preferred_name(self):
+        return self.nickname if self.nickname else self.first_name
+
     def __str__(self):
-        return f"{self.first_name} {self.last_name}"
+        return f"{self.preferred_name} {self.last_name}"

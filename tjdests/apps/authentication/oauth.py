@@ -28,6 +28,7 @@ class IonOauth2(BaseOAuth2):  # pylint: disable=abstract-method
             "username": profile["ion_username"],
             "first_name": profile["first_name"],
             "last_name": profile["last_name"],
+            "nickname": profile["nickname"] if profile["nickname"] else "",
             "full_name": profile["full_name"],
             "email": profile["tj_email"],
             "is_student": profile["is_student"],
