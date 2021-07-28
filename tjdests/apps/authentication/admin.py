@@ -4,8 +4,8 @@ from .models import User
 
 
 class UserAdmin(admin.ModelAdmin):
-    search_fields = ["username", "first_name", "last_name"]
-    list_display = ["username", "last_name", "first_name", "last_modified"]
+    search_fields = ["username", "preferred_name", "last_name"]
+    list_display = ["username", "last_name", "preferred_name", "last_modified"]
     list_filter = ["is_senior", "is_student", "accepted_terms", "publish_data"]
 
     fieldsets = (
@@ -14,8 +14,9 @@ class UserAdmin(admin.ModelAdmin):
             {
                 "fields": (
                     "username",
-                    "first_name",
+                    "preferred_name",
                     "last_name",
+                    "nickname",
                     "email",
                     "password",
                     "accepted_terms",
