@@ -23,7 +23,7 @@ django-stubs = "~=1.8.0"
 flake8 = "~=3.9.2"
 isort = "~=5.9.2"
 mypy = "~=0.910"
-pylint = "~=2.9.5"
+pylint = "~=2.9.6"
 pylint-django = "~=2.4.4"
 pyyaml = "~=5.4.1"
 typed-ast = "~=1.4.3"  # Required by black, but Pipenv doesn't pull it in correctly on 3.8
