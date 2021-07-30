@@ -16,16 +16,7 @@
         <script src="{% static "tom-select.complete.min.js" %}" integrity="sha384-Hnof5Csstpcrk+thlHZ8VXXkD/Wk96gkCvwIvpwYLBVIAPyQA3gkqcPO+RwLARmZ"></script>
         <link rel="stylesheet" href="{% static "tom-select.bootstrap5.css" %}" integrity="sha384-3syGtcTzvEB6zjzJ4BQ2loMdsaYaxAjWjD3GcbCLAPAE2XkENSR94WcY8c3g5lNu" />
 
-        <script>
-            $(document).ready(function(){
-                $("select").each(function(){
-                    new TomSelect("#" + this.id, {allowEmptyOption: true, "plugins": ["change_listener"]});
-                });
-                $(function () {
-                  $('[data-toggle="tooltip"]').tooltip()
-                })
-            })
-        </script>
+        <script src="{% static "main.js" %}"></script>
 
         <title>{{ settings.BRANDING_NAME }} {{ settings.SENIOR_GRAD_YEAR }}</title>
     </head>
