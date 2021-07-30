@@ -167,6 +167,7 @@ MESSAGE_TAGS = {
 SENIOR_GRAD_YEAR: int = -1
 BRANDING_NAME: str = "UNDEFINED"
 GLOBAL_MESSAGE: Optional[str] = None
+LOGIN_LOCKED = False
 
 try:
     from .secret import *  # noqa  # pylint: disable=unused-import

@@ -21,3 +21,6 @@ SOCIAL_AUTH_ION_SECRET = "ionsecret"
 # Message blast - treated as HTML safe text
 # type is str
 GLOBAL_MESSAGE = None
+
+# Login lock: if True, restrict login to superusers only
+LOGIN_LOCKED = False

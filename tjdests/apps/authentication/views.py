@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
@@ -16,6 +17,12 @@ class IndexView(TemplateView):
 @login_required
 def accept_tos_view(request: HttpRequest) -> HttpResponse:
     assert request.user.is_authenticated
+
+    if settings.LOGIN_LOCKED:
+        if not request.user.is_superuser:
+            logout(request)
+            messages.error(request, "Login is restricted to administrators only.")
+            return redirect(reverse("authentication:index"))
 
     if not request.user.is_student:
         logout(request)

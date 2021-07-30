@@ -33,6 +33,19 @@ class AuthenticationTest(TJDestsTestCase):
         self.assertEqual(302, response.status_code)
         self.assertNotIn("_auth_user_id", self.client.session)
 
+        # Test login lock
+        self.login(make_student=True, make_superuser=False)
+        with self.settings(LOGIN_LOCKED=True):
+            response = self.client.get(reverse("authentication:tos"))
+            self.assertEqual(302, response.status_code)
+            self.assertNotIn("_auth_user_id", self.client.session)
+
+        # but superusers should be fine
+        self.login(make_student=True, make_superuser=True)
+        with self.settings(LOGIN_LOCKED=True):
+            response = self.client.get(reverse("authentication:tos"))
+            self.assertEqual(200, response.status_code)
+
         # Make us a student and try again
         user = self.login(make_student=True)
         response = self.client.get(reverse("authentication:tos"))
