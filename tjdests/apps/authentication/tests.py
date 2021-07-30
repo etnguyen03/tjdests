@@ -54,7 +54,7 @@ class AuthenticationTest(TJDestsTestCase):
         )
         self.assertEqual(200, response.status_code)
         self.assertIn(
-            "You must accept the license terms to continue.",
+            "You must accept the terms of use to continue.",
             response.content.decode("UTF-8"),
         )
 

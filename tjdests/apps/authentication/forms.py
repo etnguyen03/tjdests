@@ -15,9 +15,7 @@ class TOSForm(forms.Form):
 
     accept_tos = forms.BooleanField(
         required=True,
-        label="I accept the terms of the GNU Affero General Public License as displayed above, "
-        "and I understand that the terms that provide this software WITHOUT ANY WARRANTY; "
-        "without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.",
+        label="I have read and accept the terms of use of this website as displayed above.",
     )
 
     password = forms.CharField(widget=forms.PasswordInput, required=True)
@@ -60,7 +58,7 @@ class TOSForm(forms.Form):
             raise forms.ValidationError(
                 {
                     "accept_tos": [
-                        "You must accept the license terms to continue.",
+                        "You must accept the terms of use to continue.",
                     ]
                 }
             )
