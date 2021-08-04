@@ -32,7 +32,7 @@ class UserAdmin(admin.ModelAdmin):
         ),
         (
             "Senior information",
-            {"fields": ("biography", "attending_decision", "publish_data")},
+            {"fields": ("GPA", "biography", "attending_decision", "publish_data")},
         ),
     )
 
