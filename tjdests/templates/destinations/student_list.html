@@ -38,6 +38,7 @@
             <thead>
                 <tr>
                     <th scope="col">Name</th>
+                    <th scope="col">GPA</th>
                     <th scope="col">Test scores</th>
                     <th scope="col">Biography</th>
                     <th scope="col">Decisions</th>
@@ -47,6 +48,7 @@
                 {% for senior in object_list %}
                     <tr>
                         <td>{{ senior }}</td>
+                        <td>{{ senior.GPA|stringformat:".3f" }}</td>
                         <td>
                             {# Test scores #}
                             <table class="table table-sm">

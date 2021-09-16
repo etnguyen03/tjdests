@@ -34,6 +34,7 @@ class ProfileTest(TJDestsTestCase):
         response = self.client.post(
             reverse("profile:index"),
             data={
+                "GPA": 4.000,
                 "biography": "hello",
                 "attending_decision": "",
                 "publish_data": False,
@@ -43,6 +44,7 @@ class ProfileTest(TJDestsTestCase):
         self.assertEqual(
             1,
             User.objects.filter(
+                GPA=4.000,
                 id=user.id,
                 biography="hello",
                 attending_decision=None,
@@ -59,6 +61,7 @@ class ProfileTest(TJDestsTestCase):
         response = self.client.post(
             reverse("profile:index"),
             data={
+                "GPA": 3.141,
                 "biography": "hello2",
                 "attending_decision": decision.id,
                 "publish_data": True,
@@ -69,6 +72,7 @@ class ProfileTest(TJDestsTestCase):
             1,
             User.objects.filter(
                 id=user.id,
+                GPA=3.141,
                 biography="hello2",
                 attending_decision=decision,
                 publish_data=True,
@@ -88,6 +92,7 @@ class ProfileTest(TJDestsTestCase):
         response = self.client.post(
             reverse("profile:index"),
             data={
+                "GPA": 1.234,
                 "biography": "hello2",
                 "attending_decision": decision2.id,
                 "publish_data": True,
@@ -98,6 +103,7 @@ class ProfileTest(TJDestsTestCase):
             1,
             User.objects.filter(
                 id=user.id,
+                GPA=1.234,
                 biography="hello2",
                 attending_decision=decision,
                 publish_data=True,
