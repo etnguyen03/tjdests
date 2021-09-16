@@ -24,7 +24,7 @@ class ProfilePublishForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ["publish_data", "biography", "attending_decision"]
+        fields = ["publish_data", "GPA", "biography", "attending_decision"]
 
         help_texts = {
             "biography": "ECs, intended major, advice, etc.",
