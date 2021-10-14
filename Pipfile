@@ -25,7 +25,7 @@ isort = "~=5.9.3"
 mypy = "~=0.910"
 pylint = "~=2.11.1"
 pylint-django = "~=2.4.4"
-pyyaml = "~=5.4.1"
+pyyaml = "~=6.0"
 typed-ast = "~=1.4.3"  # Required by black, but Pipenv doesn't pull it in correctly on 3.8
 
 [requires]
