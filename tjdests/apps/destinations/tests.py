@@ -341,7 +341,7 @@ class DestinationsTest(TJDestsTestCase):
         ) as mock_obj:
             call_command("import_ceeb", "foo.csv")
 
-        mock_obj.assert_called_with("foo.csv", "r")
+        mock_obj.assert_called_with("foo.csv", "r", encoding="utf-8")
 
         self.assertEqual(
             1,
@@ -381,7 +381,7 @@ class DestinationsTest(TJDestsTestCase):
         ) as mock_obj:
             call_command("import_ceeb", "foo.csv")
 
-        mock_obj.assert_called_with("foo.csv", "r")
+        mock_obj.assert_called_with("foo.csv", "r", encoding="utf-8")
 
         self.assertEqual(
             1,

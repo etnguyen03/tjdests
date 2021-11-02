@@ -17,7 +17,7 @@ class Command(BaseCommand):
 
         CEEB, College Name, City, State
         """
-        with open(options["file_name"], "r") as file:
+        with open(options["file_name"], "r", encoding="utf-8") as file:
             reader = csv.DictReader(file)
 
             for line in reader:

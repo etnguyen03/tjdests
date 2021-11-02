@@ -8,7 +8,7 @@ class User(AbstractUser):
     accepted_terms = models.BooleanField(default=False)
     graduation_year = models.PositiveSmallIntegerField(null=True)
 
-    gpa = models.FloatField(null=True, blank=True, name="GPA", help_text="Weighted GPA")
+    GPA = models.FloatField(null=True, blank=True, name="GPA", help_text="Weighted GPA")
 
     is_senior = models.BooleanField(default=False)
     is_student = models.BooleanField(default=False)

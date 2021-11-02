@@ -103,7 +103,7 @@ class ProfileTest(TJDestsTestCase):
             1,
             User.objects.filter(
                 id=user.id,
-                GPA=1.234,
+                GPA=3.141,
                 biography="hello2",
                 attending_decision=decision,
                 publish_data=True,
