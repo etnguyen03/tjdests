@@ -71,6 +71,9 @@ class Decision(models.Model):
 
     last_modified = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ["admission_status", "college"]
+
     def __str__(self):
         return (
             f"{self.college.name} - {self.get_decision_type_display()}: "
