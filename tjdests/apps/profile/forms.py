@@ -22,6 +22,18 @@ class ProfilePublishForm(forms.ModelForm):
             user=self.instance, admission_status__contains="ADMIT"
         )
 
+    def clean(self) -> Dict[str, Any]:
+        cleaned_data = super().clean()
+
+        # Check the GPA: 0.0 <= GPA <= 5.0
+        if cleaned_data.get("GPA"):
+            gpa = cleaned_data.get("GPA")
+            assert type(gpa) is float
+            if not 0.0 <= gpa <= 5.0:
+                self.add_error("GPA", "This is not a valid GPA")
+
+        return cleaned_data
+
     class Meta:
         model = User
         fields = ["publish_data", "GPA", "biography", "attending_decision"]

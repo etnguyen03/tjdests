@@ -52,6 +52,26 @@ class ProfileTest(TJDestsTestCase):
             ).count(),
         )
 
+        response = self.client.post(
+            reverse("profile:index"),
+            data={
+                "biography": "sdf",
+                "attending_decision": "",
+                "publish_data": False,
+            },
+        )
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(
+            1,
+            User.objects.filter(
+                GPA=None,
+                id=user.id,
+                biography="sdf",
+                attending_decision=None,
+                publish_data=False,
+            ).count(),
+        )
+
         # Test creating an admitted decision, then setting that as our destination.
         college = College.objects.get_or_create(name="test college")[0]
         decision = Decision.objects.get_or_create(
