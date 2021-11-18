@@ -28,7 +28,7 @@ class ProfilePublishForm(forms.ModelForm):
         # Check the GPA: 0.0 <= GPA <= 5.0
         if cleaned_data.get("GPA"):
             gpa = cleaned_data.get("GPA")
-            assert type(gpa) is float
+            assert isinstance(gpa, float)
             if not 0.0 <= gpa <= 5.0:
                 self.add_error("GPA", "This is not a valid GPA")
 
