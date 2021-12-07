@@ -5,7 +5,7 @@ name = "pypi"
 
 [packages]
 crispy-bootstrap5 = "~=0.6"
-django = "~=3.2.9"
+django = "~=3.2.10"
 django-bootstrap-pagination = "~=1.7.1"
 django-crispy-forms = "~=1.13.0"
 django-extensions = "~=3.1.5"
