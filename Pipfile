@@ -24,7 +24,7 @@ flake8 = "~=4.0.1"
 isort = "~=5.10.1"
 mypy = "~=0.910"
 pylint = "~=2.12.2"
-pylint-django = "~=2.4.4"
+pylint-django = "~=2.5.0"
 pyyaml = "~=6.0"
 typed-ast = "~=1.5.1"  # Required by black, but Pipenv doesn't pull it in correctly on 3.8
 
