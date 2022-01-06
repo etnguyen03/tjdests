@@ -39,7 +39,7 @@ class ProfilePublishForm(forms.ModelForm):
         fields = ["publish_data", "GPA", "biography", "attending_decision"]
 
         help_texts = {
-            "biography": "ECs, intended major, advice, etc.",
+            "biography": "ECs, intended major, advice, etc. Markdown is supported.",
         }
 
 
