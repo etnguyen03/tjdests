@@ -6,13 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('authentication', '0010_user_nickname'),
+        ("authentication", "0010_user_nickname"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='user',
-            name='use_nickname',
-            field=models.BooleanField(default=False, help_text='If this is set, your nickname will be used to identify you across the site.', verbose_name='Use nickname instead of first name'),
+            model_name="user",
+            name="use_nickname",
+            field=models.BooleanField(
+                default=False,
+                help_text="If this is set, your nickname will be used to identify you across the site.",
+                verbose_name="Use nickname instead of first name",
+            ),
         ),
     ]
