@@ -20,6 +20,7 @@ class UserAdmin(admin.ModelAdmin):
                     "email",
                     "password",
                     "accepted_terms",
+                    "use_nickname",
                     "is_staff",
                     "is_superuser",
                     "is_senior",

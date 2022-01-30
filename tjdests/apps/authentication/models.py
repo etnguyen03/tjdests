@@ -15,7 +15,7 @@ class User(AbstractUser):
 
     nickname = models.CharField(max_length=30, blank=True)
     use_nickname = models.BooleanField(
-        default=(nickname is not None),
+        default=False,
         verbose_name="Use nickname instead of first name",
         help_text="If this is set, your nickname will be used to identify you across the site.",
     )
