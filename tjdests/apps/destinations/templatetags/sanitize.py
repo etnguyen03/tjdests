@@ -5,7 +5,11 @@ from django import template
 
 register = template.Library()
 
-tags = ALLOWED_TAGS + ["h" + str(i) for i in range(1, 7)] + ["div", "p", "pre", "span"]
+tags = (
+    ALLOWED_TAGS
+    + ["h" + str(i) for i in range(1, 7)]
+    + ["div", "p", "pre", "span", "s"]
+)
 attrs = {"*": ["class"]}
 
 
