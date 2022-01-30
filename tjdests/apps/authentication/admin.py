@@ -4,7 +4,7 @@ from .models import User
 
 
 class UserAdmin(admin.ModelAdmin):
-    search_fields = ["username", "preferred_name", "last_name"]
+    search_fields = ["username", "first_name", "nickname", "last_name"]
     list_display = ["username", "last_name", "preferred_name", "last_modified"]
     list_filter = ["is_senior", "is_student", "accepted_terms", "publish_data"]
 
