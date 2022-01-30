@@ -15,4 +15,11 @@ $(document).ready(function(){
             $(this).prop("checked", confirmreturn)
         }
     })
+
+    /* Hide "Use nickname" checkbox if person doesn't have a nickname
+    The box won't do anything if they don't have a nickname,
+    but it's nice to just get it out of the way, you know? */
+    if ($("#without-nickname").length) {
+            $("#div_id_use_nickname").hide();
+        }
 })

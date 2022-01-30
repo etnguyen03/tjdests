@@ -14,6 +14,11 @@ class User(AbstractUser):
     is_student = models.BooleanField(default=False)
 
     nickname = models.CharField(max_length=30, blank=True)
+    use_nickname = models.BooleanField(
+        default=(nickname is not None),
+        verbose_name="Use nickname instead of first name",
+        help_text="If this is set, your nickname will be used to identify you across the site.",
+    )
 
     # The rest are used only if a senior
     publish_data = models.BooleanField(
@@ -37,7 +42,7 @@ class User(AbstractUser):
 
     @property
     def preferred_name(self):
-        return self.nickname if self.nickname else self.first_name
+        return self.nickname if self.nickname and self.use_nickname else self.first_name
 
     def __str__(self):
         return f"{self.preferred_name} {self.last_name}"

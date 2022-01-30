@@ -4,8 +4,11 @@
 
 {% block content %}
     <h2>Profile</h2>
-    <p>You are {{ request.user.username }}, {{ request.user.preferred_name }} {{ request.user.last_name }}.</p>
-
+    {% if request.user.nickname %}
+        <p id="with-nickname">You are {{ request.user.username }}, {{ request.user.first_name }} {{ request.user.last_name }} ({{ request.user.nickname }}).</p>
+    {% else %}
+        <p id="without-nickname">You are {{ request.user.username }}, {{ request.user.preferred_name }} {{ request.user.last_name }}.</p>
+    {% endif %}
     <h4>Data Publication, College Attending, Biography</h4>
     <div class="container">
         {% if request.user.is_senior %}

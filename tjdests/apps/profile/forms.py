@@ -36,7 +36,7 @@ class ProfilePublishForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ["publish_data", "GPA", "biography", "attending_decision"]
+        fields = ["use_nickname", "publish_data", "GPA", "biography", "attending_decision"]
 
         help_texts = {
             "biography": "ECs, intended major, advice, etc. Markdown is supported.",
