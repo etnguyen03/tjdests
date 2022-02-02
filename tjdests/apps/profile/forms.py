@@ -37,6 +37,7 @@ class ProfilePublishForm(forms.ModelForm):
     class Meta:
         model = User
         fields = [
+            "nickname",
             "use_nickname",
             "publish_data",
             "GPA",
