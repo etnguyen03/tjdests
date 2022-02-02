@@ -16,10 +16,14 @@ $(document).ready(function(){
         }
     })
 
-    /* Hide "Use nickname" checkbox if person doesn't have a nickname
-    The box won't do anything if they don't have a nickname,
-    but it's nice to just get it out of the way, you know? */
-    if ($("#without-nickname").length) {
-            $("#div_id_use_nickname").hide();
-        }
+    function characterCount() {
+        return $("#id_biography").val().length.toString() + "/1500 characters";
+    }
+
+    $("#div_id_biography").append("<small id=\"count\" class=\"form-text text-muted\"></small>");
+    $("#count").text(characterCount());
+
+    $("#id_biography").keyup(function(){
+        $("#count").text(characterCount());
+    });
 })
