@@ -40,9 +40,14 @@ class User(AbstractUser):
 
     last_modified = models.DateTimeField(auto_now=True)
 
-    @property
-    def preferred_name(self):
+    preferred_name = models.CharField(max_length=30, blank=True)
+
+    def get_preferred_name(self):
         return self.nickname if self.nickname and self.use_nickname else self.first_name
 
     def __str__(self):
         return f"{self.preferred_name} {self.last_name}"
+
+    def save(self, *args, **kwargs):
+        self.preferred_name = self.get_preferred_name()
+        super().save(*args, **kwargs)
