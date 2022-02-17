@@ -1,3 +1,4 @@
+from decimal import Decimal
 from typing import Any, Dict
 
 from crispy_forms.helper import FormHelper
@@ -28,7 +29,7 @@ class ProfilePublishForm(forms.ModelForm):
         # Check the GPA: 0.0 <= GPA <= 5.0
         if cleaned_data.get("GPA"):
             gpa = cleaned_data.get("GPA")
-            assert isinstance(gpa, float)
+            assert isinstance(gpa, Decimal)
             if not 0.0 <= gpa <= 5.0:
                 self.add_error("GPA", "This is not a valid GPA")
 

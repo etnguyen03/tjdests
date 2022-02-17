@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.urls import reverse
 
 from tjdests.apps.authentication.models import User
@@ -44,7 +46,7 @@ class ProfileTest(TJDestsTestCase):
         self.assertEqual(
             1,
             User.objects.filter(
-                GPA=4.000,
+                GPA=Decimal(4.000),
                 id=user.id,
                 biography="hello",
                 attending_decision=None,
@@ -92,7 +94,7 @@ class ProfileTest(TJDestsTestCase):
             1,
             User.objects.filter(
                 id=user.id,
-                GPA=3.141,
+                GPA=Decimal(3.141),
                 biography="hello2",
                 attending_decision=decision,
                 publish_data=True,
@@ -123,7 +125,7 @@ class ProfileTest(TJDestsTestCase):
             1,
             User.objects.filter(
                 id=user.id,
-                GPA=3.141,
+                GPA=Decimal(3.141),
                 biography="hello2",
                 attending_decision=decision,
                 publish_data=True,
