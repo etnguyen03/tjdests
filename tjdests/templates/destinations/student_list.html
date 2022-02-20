@@ -49,7 +49,7 @@
                 {% for senior in object_list %}
                     <tr class="d-flex">
                         <td class="col-1">{{ senior }}</td>
-                        <td class="col-1">{{ senior.GPA }}</td>
+                        <td class="col-1">{% firstof senior.GPA "" %}</td>
                         <td class="col-3">
                             {# Test scores #}
                             <table class="table table-sm">
