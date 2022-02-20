@@ -138,9 +138,11 @@ class ProfileTest(TJDestsTestCase):
         user.nickname = "Memer"
         # Should use nickname ("Memer") if option set
         user.use_nickname = True
+        user.save()
         self.assertEqual("Memer", user.preferred_name)
         # Should use first name ("Dank") if option not set
         user.use_nickname = False
+        user.save()
         self.assertEqual("Dank", user.preferred_name)
 
     def test_testscore_create(self):
