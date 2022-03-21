@@ -24,6 +24,17 @@ class ProfilePublishForm(forms.ModelForm):
         )
 
     def clean(self) -> Dict[str, Any]:
+        data = self.data.copy()
+
+        # Remove carriage returns from biography
+        if data.get("biography"):
+            data["biography"] = data["biography"].replace("\r", "")
+            self.instance.biography = data["biography"]
+            if len(data["biography"]) <= self.fields["biography"].max_length:
+                if self.errors.get("biography"):
+                    del self.errors["biography"]
+
+        self.data = data
         cleaned_data = super().clean()
 
         # Check the GPA: 0.0 <= GPA <= 5.0
