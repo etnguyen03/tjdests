@@ -11,6 +11,7 @@ class TJDestsTestCase(TestCase):
         make_student: bool = False,
         make_senior: bool = False,
         make_superuser: bool = False,
+        ban_user: bool = False,
         publish_data: bool = False,
     ) -> User:
         """
@@ -22,6 +23,7 @@ class TJDestsTestCase(TestCase):
             make_student: Whether to make this user a student.
             make_senior: Whether to make this user a senior.
             make_superuser: Whether to make this user a superuser.
+            ban_user: Whether to ban the user.
             publish_data: Whether to publish this user's data.
         Return:
             The user.
@@ -33,6 +35,7 @@ class TJDestsTestCase(TestCase):
                 "is_staff": make_superuser,
                 "is_superuser": make_superuser,
                 "is_senior": make_senior,
+                "is_banned": ban_user,
                 "accepted_terms": accept_tos,
                 "publish_data": publish_data,
             },

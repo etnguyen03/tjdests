@@ -46,6 +46,12 @@ class AuthenticationTest(TJDestsTestCase):
             response = self.client.get(reverse("authentication:tos"))
             self.assertEqual(200, response.status_code)
 
+        # Test banned users
+        self.login(make_student=True, ban_user=True)
+        response = self.client.get(reverse("authentication:tos"))
+        self.assertEqual(302, response.status_code)
+        self.assertNotIn("_auth_user_id", self.client.session)
+
         # Make us a student and try again
         user = self.login(make_student=True)
         response = self.client.get(reverse("authentication:tos"))

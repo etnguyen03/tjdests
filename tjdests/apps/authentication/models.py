@@ -19,6 +19,7 @@ class User(AbstractUser):
 
     is_senior = models.BooleanField(default=False)
     is_student = models.BooleanField(default=False)
+    is_banned = models.BooleanField(default=False)
 
     nickname = models.CharField(max_length=30, blank=True)
     use_nickname = models.BooleanField(

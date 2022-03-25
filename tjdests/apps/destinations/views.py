@@ -67,7 +67,7 @@ class StudentDestinationListView(
 
     def test_func(self):
         assert self.request.user.is_authenticated
-        return self.request.user.accepted_terms
+        return self.request.user.accepted_terms and not self.request.user.is_banned
 
     template_name = "destinations/student_list.html"
 
@@ -200,6 +200,6 @@ class CollegeDestinationListView(
 
     def test_func(self):
         assert self.request.user.is_authenticated
-        return self.request.user.accepted_terms
+        return self.request.user.accepted_terms and not self.request.user.is_banned
 
     template_name = "destinations/college_list.html"
