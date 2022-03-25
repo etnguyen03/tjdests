@@ -51,6 +51,7 @@ class Decision(models.Model):
     DEFER_WL_D = "DEFER_WAITLIST_DENY"
     DEFER = "DEFER"
     DENY = "DENY"
+    UNKNOWN = "UNKNOWN"
 
     ADMIT_TYPE_CHOICES = [
         (ADMIT, "Admitted"),
@@ -64,6 +65,7 @@ class Decision(models.Model):
         (DEFER_WL_A, "Deferred-Waitlisted-Admitted"),
         (DEFER_WL_D, "Deferred-Waitlisted-Denied"),
         (DENY, "Denied"),
+        (UNKNOWN, "Unknown"),
     ]
 
     admission_status = models.CharField(max_length=20, choices=ADMIT_TYPE_CHOICES)

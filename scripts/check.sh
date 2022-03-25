@@ -23,7 +23,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-cd "$(dirname -- "$(dirname -- "$(readlink -f "$0")")")"
+cd "$(dirname -- "$(dirname -- "$(readlink -f "$0")")")" || exit
 
 for cmd in flake8 isort mypy pylint; do
     if [[ ! -x "$(which "$cmd")" ]]; then

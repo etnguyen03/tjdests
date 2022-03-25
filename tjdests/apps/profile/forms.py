@@ -1,3 +1,4 @@
+from decimal import Decimal
 from typing import Any, Dict
 
 from crispy_forms.helper import FormHelper
@@ -23,12 +24,23 @@ class ProfilePublishForm(forms.ModelForm):
         )
 
     def clean(self) -> Dict[str, Any]:
+        data = self.data.copy()
+
+        # Remove carriage returns from biography
+        if data.get("biography"):
+            data["biography"] = data["biography"].replace("\r", "")
+            self.instance.biography = data["biography"]
+            if len(data["biography"]) <= self.fields["biography"].max_length:
+                if self.errors.get("biography"):
+                    del self.errors["biography"]
+
+        self.data = data
         cleaned_data = super().clean()
 
         # Check the GPA: 0.0 <= GPA <= 5.0
         if cleaned_data.get("GPA"):
             gpa = cleaned_data.get("GPA")
-            assert isinstance(gpa, float)
+            assert isinstance(gpa, Decimal)
             if not 0.0 <= gpa <= 5.0:
                 self.add_error("GPA", "This is not a valid GPA")
 
@@ -36,10 +48,17 @@ class ProfilePublishForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ["publish_data", "GPA", "biography", "attending_decision"]
+        fields = [
+            "nickname",
+            "use_nickname",
+            "publish_data",
+            "GPA",
+            "biography",
+            "attending_decision",
+        ]
 
         help_texts = {
-            "biography": "ECs, intended major, advice, etc.",
+            "biography": "ECs, intended major, advice, etc. Markdown is supported.",
         }
 
 

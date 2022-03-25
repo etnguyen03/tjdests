@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.urls import reverse
 
 from tjdests.apps.authentication.models import User
@@ -44,7 +46,7 @@ class ProfileTest(TJDestsTestCase):
         self.assertEqual(
             1,
             User.objects.filter(
-                GPA=4.000,
+                GPA=Decimal(4.000),
                 id=user.id,
                 biography="hello",
                 attending_decision=None,
@@ -92,7 +94,7 @@ class ProfileTest(TJDestsTestCase):
             1,
             User.objects.filter(
                 id=user.id,
-                GPA=3.141,
+                GPA=Decimal(3.141),
                 biography="hello2",
                 attending_decision=decision,
                 publish_data=True,
@@ -123,12 +125,25 @@ class ProfileTest(TJDestsTestCase):
             1,
             User.objects.filter(
                 id=user.id,
-                GPA=3.141,
+                GPA=Decimal(3.141),
                 biography="hello2",
                 attending_decision=decision,
                 publish_data=True,
             ).count(),
         )
+
+        # Test nickname/preferred name feature
+        user = self.login(accept_tos=True, make_student=True)
+        user.first_name = "Dank"
+        user.nickname = "Memer"
+        # Should use nickname ("Memer") if option set
+        user.use_nickname = True
+        user.save()
+        self.assertEqual("Memer", user.preferred_name)
+        # Should use first name ("Dank") if option not set
+        user.use_nickname = False
+        user.save()
+        self.assertEqual("Dank", user.preferred_name)
 
     def test_testscore_create(self):
         """Tests creating test scores."""

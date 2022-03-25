@@ -8,12 +8,24 @@ class User(AbstractUser):
     accepted_terms = models.BooleanField(default=False)
     graduation_year = models.PositiveSmallIntegerField(null=True)
 
-    GPA = models.FloatField(null=True, blank=True, name="GPA", help_text="Weighted GPA")
+    GPA = models.DecimalField(
+        null=True,
+        blank=True,
+        name="GPA",
+        help_text="Weighted GPA",
+        max_digits=4,
+        decimal_places=3,
+    )
 
     is_senior = models.BooleanField(default=False)
     is_student = models.BooleanField(default=False)
 
     nickname = models.CharField(max_length=30, blank=True)
+    use_nickname = models.BooleanField(
+        default=False,
+        verbose_name="Use nickname instead of first name",
+        help_text="If this is set, your nickname will be used to identify you across the site.",
+    )
 
     # The rest are used only if a senior
     publish_data = models.BooleanField(
@@ -35,9 +47,14 @@ class User(AbstractUser):
 
     last_modified = models.DateTimeField(auto_now=True)
 
-    @property
-    def preferred_name(self):
-        return self.nickname if self.nickname else self.first_name
+    preferred_name = models.CharField(max_length=30, blank=True)
+
+    def get_preferred_name(self):
+        return self.nickname if self.nickname and self.use_nickname else self.first_name
 
     def __str__(self):
         return f"{self.preferred_name} {self.last_name}"
+
+    def save(self, *args, **kwargs):
+        self.preferred_name = self.get_preferred_name()
+        super().save(*args, **kwargs)

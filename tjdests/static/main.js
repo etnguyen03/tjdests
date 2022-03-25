@@ -15,4 +15,15 @@ $(document).ready(function(){
             $(this).prop("checked", confirmreturn)
         }
     })
+
+    function characterCount() {
+        return $("#id_biography").val().length.toString() + "/1500 characters";
+    }
+
+    $("#div_id_biography").append("<small id=\"count\" class=\"form-text text-muted\"></small>");
+    $("#count").text(characterCount());
+
+    $("#id_biography").keyup(function(){
+        $("#count").text(characterCount());
+    });
 })

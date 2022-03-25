@@ -27,7 +27,9 @@ class StudentDestinationListView(
         else:
             queryset = User.objects.filter(publish_data=True)
 
-        queryset = queryset.filter(is_senior=True).order_by("last_name", "first_name")
+        queryset = queryset.filter(is_senior=True).order_by(
+            "last_name", "preferred_name"
+        )
 
         college_id: Optional[str] = self.request.GET.get("college", None)
         if college_id is not None:
