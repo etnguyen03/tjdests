@@ -29,6 +29,15 @@ def accept_tos_view(request: HttpRequest) -> HttpResponse:
         messages.error(request, "You must be a student to access this site.")
         return redirect(reverse("authentication:index"))
 
+    if request.user.is_banned:
+        logout(request)
+        messages.error(
+            request,
+            "You have been banned from this site. "
+            "Contact the site's administrator to appeal your ban.",
+        )
+        return redirect(reverse("authentication:index"))
+
     if request.user.accepted_terms:
         return redirect(reverse("authentication:index"))
 

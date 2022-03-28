@@ -7,7 +7,11 @@ from django.shortcuts import redirect
 def require_accept_tos(func):
     @functools.wraps(func)
     def wrapper(request: HttpRequest, *args, **kwargs):
-        if request.user.is_authenticated and not request.user.accepted_terms:
+        if (
+            request.user.is_authenticated
+            and not request.user.accepted_terms
+            and not request.user.is_banned
+        ):
             return redirect("authentication:tos")
 
         return func(request, *args, **kwargs)
