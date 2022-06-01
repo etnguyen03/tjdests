@@ -29,7 +29,7 @@ pylint = "~=2.13.7"
 pylint-django = "~=2.5.3"
 pyyaml = "~=6.0"
 typed-ast = "~=1.5.3"  # Required by black, but Pipenv doesn't pull it in correctly on 3.8
-types-Markdown = "~=3.3.13"  # To avoid CI failures
+types-Markdown = "~=3.3.27"  # To avoid CI failures
 types-bleach = "~=5.0.2"  # To avoid CI failures
 
 [requires]
