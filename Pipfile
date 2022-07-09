@@ -5,12 +5,12 @@ name = "pypi"
 
 [packages]
 crispy-bootstrap5 = "~=0.6"
-django = "~=3.2.12"
+django = "~=3.2.13"
 django-bootstrap-pagination = "~=1.7.1"
 django-crispy-forms = "~=1.14.0"
 django-extensions = "~=3.1.5"
 gunicorn = "~=20.1.0"
-ipython = "~=8.1.1"
+ipython = "~=8.2.0"
 mistune = "~=2.0.2"
 psycopg2 = "~=2.9.3"
 pygments = "~=2.11.2"
@@ -19,18 +19,18 @@ whitenoise = "~=6.0.0"
 
 [dev-packages]
 autopep8 = "~=1.6.0"
-black = "==22.1.0"
+black = "==22.3.0"
 coverage = "~=6.3.2"
 django-stubs = "~=1.9.0"
 flake8 = "~=4.0.1"
 isort = "~=5.10.1"
 mypy = "~=0.942"
-pylint = "~=2.13.1"
+pylint = "~=2.13.7"
 pylint-django = "~=2.5.3"
 pyyaml = "~=6.0"
-typed-ast = "~=1.5.2"  # Required by black, but Pipenv doesn't pull it in correctly on 3.8
-types-Markdown = "~=3.3.12"  # To avoid CI failures
-types-bleach = "~=4.1.5"  # To avoid CI failures
+typed-ast = "~=1.5.3"  # Required by black, but Pipenv doesn't pull it in correctly on 3.8
+types-Markdown = "~=3.3.13"  # To avoid CI failures
+types-bleach = "~=5.0.2"  # To avoid CI failures
 
 [requires]
 python_version = "3.9"

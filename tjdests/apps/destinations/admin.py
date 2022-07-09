@@ -4,8 +4,8 @@ from .models import College, Decision, TestScore
 
 
 class CollegeAdmin(admin.ModelAdmin):
-    search_fields = ["ceeb_code", "name", "location"]
-    list_display = ["ceeb_code", "name", "location"]
+    search_fields = ["name", "location"]
+    list_display = ["name", "location"]
 
 
 class DecisionAdmin(admin.ModelAdmin):
