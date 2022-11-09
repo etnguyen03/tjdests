@@ -45,7 +45,9 @@ def accept_tos_view(request: HttpRequest) -> HttpResponse:
         form = TOSForm(request.POST)
 
         if form.is_valid():
-            request.user.accepted_terms = form.cleaned_data.get("accept_tos")
+            accept_tos = form.cleaned_data.get("accept_tos")
+            assert accept_tos is bool
+            request.user.accepted_terms = accept_tos
             request.user.set_password(form.cleaned_data.get("password"))
             request.user.save()
 

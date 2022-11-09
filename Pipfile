@@ -4,33 +4,33 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-crispy-bootstrap5 = "~=0.6"
-django = "~=3.2.14"
+crispy-bootstrap5 = "~=0.7"
+django = "~=3.2.16"
 django-bootstrap-pagination = "~=1.7.1"
 django-crispy-forms = "~=1.14.0"
-django-extensions = "~=3.2.0"
+django-extensions = "~=3.2.1"
 gunicorn = "~=20.1.0"
-ipython = "~=8.4.0"
+ipython = "~=8.6.0"
 mistune = "~=2.0.4"
-psycopg2 = "~=2.9.3"
-pygments = "~=2.12.0"
+psycopg2 = "~=2.9.5"
+pygments = "~=2.13.0"
 social-auth-app-django = "~=5.0.0"
 whitenoise = "~=6.2.0"
 
 [dev-packages]
-autopep8 = "~=1.6.0"
-black = "==22.6.0"
-coverage = "~=6.4.2"
-django-stubs = "~=1.12.0"
-flake8 = "~=4.0.1"
+autopep8 = "~=2.0.0"
+black = "==22.10.0"
+coverage = "~=6.5.0"
+django-stubs = "~=1.13.0"
+flake8 = "~=5.0.4"
 isort = "~=5.10.1"
-mypy = "~=0.961"
-pylint = "~=2.14.4"
+mypy = "==0.990"
+pylint = "~=2.15.5"
 pylint-django = "~=2.5.3"
 pyyaml = "~=6.0"
 typed-ast = "~=1.5.4"  # Required by black, but Pipenv doesn't pull it in correctly on 3.8
-types-Markdown = "~=3.3.31"  # To avoid CI failures
-types-bleach = "~=5.0.3"  # To avoid CI failures
+types-Markdown = "~=3.4.2.1"  # To avoid CI failures
+types-bleach = "~=5.0.3.1"  # To avoid CI failures
 
 [requires]
 python_version = "3.9"

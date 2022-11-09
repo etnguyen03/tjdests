@@ -1,5 +1,6 @@
 from decimal import Decimal
 
+from django.http import HttpResponseRedirect
 from django.urls import reverse
 
 from tjdests.apps.authentication.models import User
@@ -16,6 +17,7 @@ class ProfileTest(TJDestsTestCase):
         # Test as an unauthenticated user.
         response = self.client.get(reverse("profile:index"))
         self.assertEqual(302, response.status_code)
+        assert isinstance(response, HttpResponseRedirect)
         self.assertEqual(
             reverse("authentication:login") + f"?next={reverse('profile:index')}",
             response.url,
@@ -25,6 +27,7 @@ class ProfileTest(TJDestsTestCase):
         self.login(accept_tos=False, make_student=True)
         response = self.client.get(reverse("profile:index"))
         self.assertEqual(302, response.status_code)
+        assert isinstance(response, HttpResponseRedirect)
         self.assertEqual(reverse("authentication:tos"), response.url)
 
         # Test as a user that has accepted TOS

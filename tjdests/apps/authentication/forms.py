@@ -29,6 +29,7 @@ class TOSForm(forms.Form):
 
     def clean(self):
         cleaned_data = super().clean()
+        assert cleaned_data is not None
         password1 = cleaned_data.get("password")
         password2 = cleaned_data.get("password_confirm")
 
