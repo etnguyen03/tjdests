@@ -5,32 +5,32 @@ name = "pypi"
 
 [packages]
 crispy-bootstrap5 = "~=0.7"
-django = "~=3.2.16"
+django = "~=3.2.18"
 django-bootstrap-pagination = "~=1.7.1"
 django-crispy-forms = "~=1.14.0"
 django-extensions = "~=3.2.1"
 gunicorn = "~=20.1.0"
-ipython = "~=8.8.0"
-mistune = "~=2.0.4"
+ipython = "~=8.10.0"
+mistune = "~=2.0.5"
 psycopg2 = "~=2.9.5"
 pygments = "~=2.14.0"
 social-auth-app-django = "~=5.0.0"
-whitenoise = "~=6.3.0"
+whitenoise = "~=6.4.0"
 
 [dev-packages]
 autopep8 = "~=2.0.1"
-black = "==22.12.0"
-coverage = "~=7.0.5"
-django-stubs = "~=1.13.1"
+black = "~=23.1.0"
+coverage = "~=7.2.1"
+django-stubs = "~=1.15.0"
 flake8 = "~=6.0.0"
-isort = "~=5.11.4"
-mypy = "==0.991"
-pylint = "~=2.15.10"
+isort = "~=5.12.0"
+mypy = "~=1.0.1"
+pylint = "~=2.16.2"
 pylint-django = "~=2.5.3"
 pyyaml = "~=6.0"
 typed-ast = "~=1.5.4"  # Required by black, but Pipenv doesn't pull it in correctly on 3.8
-types-Markdown = "~=3.4.2.1"  # To avoid CI failures
-types-bleach = "~=5.0.3.1"  # To avoid CI failures
+types-Markdown = "~=3.4.2.5"  # To avoid CI failures
+types-bleach = "~=6.0.0.1"  # To avoid CI failures
 
 [requires]
 python_version = "3.9"
