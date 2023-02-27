@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("destinations", "0009_alter_decision_admission_status"),
     ]

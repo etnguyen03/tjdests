@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("destinations", "0006_alter_college_ceeb_code"),
     ]
