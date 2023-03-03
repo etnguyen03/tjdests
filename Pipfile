@@ -18,7 +18,7 @@ social-auth-app-django = "~=5.0.0"
 whitenoise = "~=6.4.0"
 
 [dev-packages]
-autopep8 = "~=2.0.1"
+autopep8 = "~=2.0.2"
 black = "~=23.1.0"
 coverage = "~=7.2.1"
 django-stubs = "~=1.15.0"
