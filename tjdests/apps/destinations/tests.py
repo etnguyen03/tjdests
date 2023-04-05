@@ -1,6 +1,7 @@
 from unittest.mock import mock_open, patch
 
 from django.core.management import CommandError, call_command
+from django.http import HttpResponseRedirect
 from django.urls import reverse
 
 from ...test import TJDestsTestCase
@@ -15,6 +16,7 @@ class DestinationsTest(TJDestsTestCase):
         # Test as an unauthenticated user.
         response = self.client.get(reverse("destinations:students"))
         self.assertEqual(302, response.status_code)
+        assert isinstance(response, HttpResponseRedirect)
         self.assertEqual(
             reverse("authentication:login")
             + f"?next={reverse('destinations:students')}",
@@ -191,6 +193,7 @@ class DestinationsTest(TJDestsTestCase):
 
         response = self.client.get(reverse("destinations:colleges"))
         self.assertEqual(302, response.status_code)
+        assert isinstance(response, HttpResponseRedirect)
         self.assertEqual(
             reverse("authentication:login")
             + f"?next={reverse('destinations:colleges')}",

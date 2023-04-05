@@ -30,12 +30,15 @@ class ProfilePublishForm(forms.ModelForm):
         if data.get("biography"):
             data["biography"] = data["biography"].replace("\r", "")
             self.instance.biography = data["biography"]
+            assert self.fields["biography"].max_length is not None
             if len(data["biography"]) <= self.fields["biography"].max_length:
                 if self.errors.get("biography"):
                     del self.errors["biography"]
 
         self.data = data
         cleaned_data = super().clean()
+
+        assert cleaned_data is not None
 
         # Check the GPA: 0.0 <= GPA <= 5.0
         if cleaned_data.get("GPA"):
@@ -74,6 +77,7 @@ class DecisionForm(forms.ModelForm):
 
     def clean(self) -> Dict[str, Any]:
         cleaned_data = super().clean()
+        assert cleaned_data is not None
 
         # Ensure that the college is not a duplicate for this user
         # Yes, this is weird. Basically: if we are not editing
@@ -143,6 +147,7 @@ class TestScoreForm(forms.ModelForm):
 
     def clean(self) -> Dict[str, Any]:
         cleaned_data = super().clean()
+        assert cleaned_data is not None
 
         exam_type = str(cleaned_data.get("exam_type"))
 

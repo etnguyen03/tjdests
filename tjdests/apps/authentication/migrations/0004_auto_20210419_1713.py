@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("destinations", "0005_alter_decision_admission_status"),
         ("authentication", "0003_alter_user_publish_data"),
