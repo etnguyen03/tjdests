@@ -82,9 +82,7 @@ class CollegeDestinationListView(
         search_query = self.request.GET.get("q", None)
         if search_query is not None:
             queryset = College.objects.filter(
-                Q(name__icontains=search_query)
-                | Q(location__icontains=search_query)
-                | Q(ceeb_code__icontains=search_query)
+                Q(name__icontains=search_query) | Q(location__icontains=search_query)
             )
         else:
             queryset = College.objects.all()

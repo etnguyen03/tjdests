@@ -213,7 +213,7 @@ class DestinationsTest(TJDestsTestCase):
 
         # Add a decision, try again
         college = College.objects.get_or_create(
-            name="test college", ceeb_code="1235", location="Arlington, VA"
+            name="test college", location="Arlington, VA"
         )[0]
         Decision.objects.get_or_create(
             college=college, user=user, decision_type="ED", admission_status="ADMIT"
@@ -303,7 +303,7 @@ class DestinationsTest(TJDestsTestCase):
 
         # Add another decision for user2 under a different college
         college2 = College.objects.get_or_create(
-            name="university of test", ceeb_code="1234", location="Alexandria, VA"
+            name="university of test", location="Alexandria, VA"
         )[0]
         Decision.objects.get_or_create(
             college=college2, user=user2, decision_type="RD", admission_status="DENY"
@@ -349,19 +349,18 @@ class DestinationsTest(TJDestsTestCase):
         self.assertEqual(
             1,
             College.objects.filter(
-                ceeb_code="1234", name="Test University", location="Alexandria, VA"
+                name="Test University", location="Alexandria, VA"
             ).count(),
         )
         self.assertEqual(
             1,
             College.objects.filter(
-                ceeb_code="1235", name="University of Test", location="Arlington, VA"
+                name="University of Test", location="Arlington, VA"
             ).count(),
         )
         self.assertEqual(
             1,
             College.objects.filter(
-                ceeb_code="INTL",
                 name="University of Abroad",
                 location="ExampleCity, RANDOMCOUNTRY",
             ).count(),
@@ -389,19 +388,18 @@ class DestinationsTest(TJDestsTestCase):
         self.assertEqual(
             1,
             College.objects.filter(
-                ceeb_code="1234", name="Test University", location="Alexandria, VA"
+                name="Test University", location="Alexandria, VA"
             ).count(),
         )
         self.assertEqual(
             1,
             College.objects.filter(
-                ceeb_code="1235", name="University of Test", location="Arlington, VA"
+                name="University of Test", location="Arlington, VA"
             ).count(),
         )
         self.assertEqual(
             1,
             College.objects.filter(
-                ceeb_code="INTL",
                 name="University of Abroad",
                 location="ExampleCity, RANDOMCOUNTRY",
             ).count(),
@@ -409,7 +407,6 @@ class DestinationsTest(TJDestsTestCase):
         self.assertEqual(
             1,
             College.objects.filter(
-                ceeb_code="INTL",
                 name="University of Abroad in CityTwo",
                 location="CityTwo, RANDOMCOUNTRY",
             ).count(),

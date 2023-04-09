@@ -4,15 +4,14 @@ from django.db import models
 class College(models.Model):
     """Represents a college."""
 
-    ceeb_code = models.CharField(max_length=10, null=False, verbose_name="CEEB Code")
     name = models.CharField(max_length=250, null=False, blank=False)
     location = models.CharField(max_length=250, null=False, blank=False)
 
     def __str__(self):
-        return f"{self.name} - {self.location} ({self.ceeb_code})"
+        return f"{self.name} - {self.location}"
 
     class Meta:
-        ordering = ["name"]
+        ordering = ["name", "location"]
 
 
 class Decision(models.Model):
@@ -22,6 +21,7 @@ class Decision(models.Model):
     EARLY_DECISION_2 = "ED2"
     EARLY_ACTION = "EA"
     EARLY_ACTION_2 = "EA2"
+    PRIORITY = "PR"
     REGULAR_DECISION = "RD"
     ROLLING = "RL"
 
@@ -30,6 +30,7 @@ class Decision(models.Model):
         (EARLY_DECISION_2, "Early Decision 2"),
         (EARLY_ACTION, "Early Action"),
         (EARLY_ACTION_2, "Early Action 2"),
+        (PRIORITY, "Priority"),
         (REGULAR_DECISION, "Regular Decision"),
         (ROLLING, "Rolling"),
     ]

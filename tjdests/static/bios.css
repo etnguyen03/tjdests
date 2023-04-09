@@ -102,3 +102,11 @@ small#count {
     float: right;
     text-align: right;
 }
+
+img {
+    width: 100%;
+}
+
+td {
+    overflow-wrap: break-word;
+}
