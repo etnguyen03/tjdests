@@ -89,6 +89,7 @@ class TestScoreUpdateView(
 class TestScoreDeleteView(
     LoginRequiredMixin, SuccessMessageMixin, UserPassesTestMixin, DeleteView
 ):
+    object: TestScore
     model = TestScore
     template_name = "profile/testscore_delete.html"
     success_message = "Test score deleted successfully."
@@ -165,6 +166,7 @@ class DecisionUpdateView(
 class DecisionDeleteView(
     LoginRequiredMixin, SuccessMessageMixin, UserPassesTestMixin, DeleteView
 ):
+    object: Decision
     model = Decision
     template_name = "profile/decision_delete.html"
     success_message = "Decision deleted successfully."

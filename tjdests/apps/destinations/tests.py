@@ -320,11 +320,6 @@ class DestinationsTest(TJDestsTestCase):
         self.assertIn(college, response.context["object_list"])
         self.assertIn(college2, response.context["object_list"])
 
-        response = self.client.get(reverse("destinations:colleges"), data={"q": "1234"})
-        self.assertEqual(200, response.status_code)
-        self.assertEqual(1, response.context["object_list"].count())
-        self.assertIn(college2, response.context["object_list"])
-
     def test_import_ceeb_command(self):
         # First, just call the command
         with self.assertRaises(CommandError):
@@ -333,10 +328,10 @@ class DestinationsTest(TJDestsTestCase):
         College.objects.all().delete()
 
         file_contents = (
-            "CEEB,College Name,City,State\n"
-            "1234,Test University,Alexandria,VA\n"
-            "1235,University of Test,Arlington,VA\n"
-            "INTL,University of Abroad,ExampleCity,RANDOMCOUNTRY"
+            "Country,College,City,State\n"
+            "UNITED STATES,Test University,Alexandria,VA\n"
+            "UNITED STATES,University of Test,Arlington,VA\n"
+            "RANDOMCOUNTRY,University of Abroad,ExampleCity,Example"
         )
         with patch(
             "tjdests.apps.destinations.management.commands.import_ceeb.open",
@@ -362,7 +357,7 @@ class DestinationsTest(TJDestsTestCase):
             1,
             College.objects.filter(
                 name="University of Abroad",
-                location="ExampleCity, RANDOMCOUNTRY",
+                location="ExampleCity, Example, RANDOMCOUNTRY",
             ).count(),
         )
 
@@ -370,11 +365,11 @@ class DestinationsTest(TJDestsTestCase):
         # But let's add a few more...
 
         file_contents = (
-            "CEEB,College Name,City,State\n"
-            "1234,Test University,Alexandria,VA\n"
-            "1235,University of Test,Arlington,VA\n"
-            "INTL,University of Abroad,ExampleCity,RANDOMCOUNTRY\n"
-            "INTL,University of Abroad in CityTwo,CityTwo,RANDOMCOUNTRY\n"
+            "Country,College,City,State\n"
+            "UNITED STATES,Test University,Alexandria,VA\n"
+            "UNITED STATES,University of Test,Arlington,VA\n"
+            "RANDOMCOUNTRY,University of Abroad,ExampleCity,RANDOM\n"
+            "RANDOMCOUNTRY,University of Abroad in CityTwo,CityTwo,RANDOM\n"
         )
 
         with patch(
@@ -401,13 +396,13 @@ class DestinationsTest(TJDestsTestCase):
             1,
             College.objects.filter(
                 name="University of Abroad",
-                location="ExampleCity, RANDOMCOUNTRY",
+                location="ExampleCity, RANDOM, RANDOMCOUNTRY",
             ).count(),
         )
         self.assertEqual(
             1,
             College.objects.filter(
                 name="University of Abroad in CityTwo",
-                location="CityTwo, RANDOMCOUNTRY",
+                location="CityTwo, RANDOM, RANDOMCOUNTRY",
             ).count(),
         )
