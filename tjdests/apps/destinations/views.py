@@ -42,7 +42,9 @@ class StudentDestinationListView(
         search_query = self.request.GET.get("q", None)
         if search_query is not None:
             queryset = queryset.filter(
-                Q(first_name__icontains=search_query)
+                Q(  # pylint: disable=unsupported-binary-operation
+                    first_name__icontains=search_query
+                )
                 | Q(last_name__icontains=search_query)
                 | Q(nickname__icontains=search_query)
                 | Q(biography__icontains=search_query)

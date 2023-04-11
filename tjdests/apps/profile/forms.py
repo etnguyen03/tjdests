@@ -19,12 +19,12 @@ class ProfilePublishForm(forms.ModelForm):
 
         self.helper.add_input(Submit("submit", "Submit"))
 
-        self.fields["attending_decision"].queryset = Decision.objects.filter(
+        self.fields["attending_decision"].queryset = Decision.objects.filter(  # type: ignore
             user=self.instance, admission_status__contains="ADMIT"
         )
 
     def clean(self) -> Dict[str, Any]:
-        data = self.data.copy()
+        data = self.data.copy()  # type: ignore
 
         # Remove carriage returns from biography
         if data.get("biography"):
