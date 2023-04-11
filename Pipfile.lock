@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "c24074d89a6eb31bde3d392d5b0eba7217af21db60babd72e20faca9c4cca2de"
+            "sha256": "83aa0fe7c33d2d54b67c4d7fbc7d3b4c69ef11de2f983616a8ef6e9646cdfe0e"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -193,7 +193,7 @@
                 "sha256:f8303414c7b03f794347ad062c0516cee0e15f7a612abd0ce1e25caf6ceb47df",
                 "sha256:fca62a8301b605b954ad2e9c3666f9d97f63872aa4efcae5492baca2056b74ab"
             ],
-            "markers": "python_full_version >= '3.7.0'",
+            "markers": "python_version >= '3.7'",
             "version": "==3.1.0"
         },
         "crispy-bootstrap5": {
@@ -302,11 +302,11 @@
         },
         "ipython": {
             "hashes": [
-                "sha256:b13a1d6c1f5818bd388db53b7107d17454129a70de2b87481d555daede5eb49e",
-                "sha256:b38c31e8fc7eff642fc7c597061fff462537cf2314e3225a19c906b7b0d8a345"
+                "sha256:1c183bf61b148b00bcebfa5d9b39312733ae97f6dad90d7e9b4d86c8647f498c",
+                "sha256:a950236df04ad75b5bc7f816f9af3d74dc118fd42f2ff7e80e8e60ca1f182e2d"
             ],
             "index": "pypi",
-            "version": "==8.10.0"
+            "version": "==8.12.0"
         },
         "jedi": {
             "hashes": [
@@ -368,7 +368,7 @@
                 "sha256:23ac5d50538a9a38c8bde05fecb47d0b403ecd0662857a86f886f798563d5b9b",
                 "sha256:45ea77a2f7c60418850331366c81cf6b5b9cf4c7fd34616f733c5427e6abbb1f"
             ],
-            "markers": "python_full_version >= '3.7.0'",
+            "markers": "python_version >= '3.7'",
             "version": "==3.0.38"
         },
         "psycopg2": {
@@ -511,6 +511,14 @@
             ],
             "markers": "python_version >= '3.7'",
             "version": "==5.9.0"
+        },
+        "typing-extensions": {
+            "hashes": [
+                "sha256:5cb5f4a79139d699607b3ef622a1dedafa84e115ab0024e0d9c044a9479ca7cb",
+                "sha256:fb33085c39dd998ac16d1431ebc293a8b3eedd00fd4a32de0ff79002c19511b4"
+            ],
+            "markers": "python_version < '3.10'",
+            "version": "==4.5.0"
         },
         "urllib3": {
             "hashes": [
@@ -858,13 +866,6 @@
             ],
             "markers": "python_full_version >= '3.6.2'",
             "version": "==0.7"
-        },
-        "pytz": {
-            "hashes": [
-                "sha256:1d8ce29db189191fb55338ee6d0387d82ab59f3d00eac103412d64e0ebd0c588",
-                "sha256:a151b3abb88eda1d4e34a9814df37de2a80e301e68ba0fd856fb9b46bfbbbffb"
-            ],
-            "version": "==2023.3"
         },
         "pyyaml": {
             "hashes": [
