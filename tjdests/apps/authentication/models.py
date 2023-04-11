@@ -12,7 +12,7 @@ class User(AbstractUser):
         null=True,
         blank=True,
         name="GPA",
-        help_text="Weighted GPA",
+        help_text="Pre-senior year, weighted GPA",
         max_digits=4,
         decimal_places=3,
     )

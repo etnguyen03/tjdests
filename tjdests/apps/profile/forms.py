@@ -56,8 +56,8 @@ class ProfilePublishForm(forms.ModelForm):
             "use_nickname",
             "publish_data",
             "GPA",
-            "biography",
             "attending_decision",
+            "biography",
         ]
 
         help_texts = {
