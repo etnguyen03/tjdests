@@ -6,7 +6,14 @@ from .models import User
 class UserAdmin(admin.ModelAdmin):
     search_fields = ["username", "first_name", "nickname", "last_name"]
     list_display = ["username", "last_name", "preferred_name", "last_modified"]
-    list_filter = ["is_senior", "is_student", "accepted_terms", "publish_data"]
+    list_filter = [
+        "is_senior",
+        "is_student",
+        "is_banned",
+        "accepted_terms",
+        "publish_data",
+        ["biography", admin.EmptyFieldListFilter],
+    ]
 
     fieldsets = (
         (
@@ -26,6 +33,7 @@ class UserAdmin(admin.ModelAdmin):
                     "is_senior",
                     "graduation_year",
                     "is_student",
+                    "is_banned",
                     "last_modified",
                     "last_login",
                 )
