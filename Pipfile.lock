@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "3f3be7067d7f370e0286f22340b6f4cba7774cf28f894b70b0e181d3cc3b36f0"
+            "sha256": "0f32177d9a71ae1cff52a2ad2bb4db7fa3b1783261262cb2a8b167507f214a6c"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -193,7 +193,7 @@
                 "sha256:f8303414c7b03f794347ad062c0516cee0e15f7a612abd0ce1e25caf6ceb47df",
                 "sha256:fca62a8301b605b954ad2e9c3666f9d97f63872aa4efcae5492baca2056b74ab"
             ],
-            "markers": "python_full_version >= '3.7.0'",
+            "markers": "python_version >= '3.7'",
             "version": "==3.1.0"
         },
         "crispy-bootstrap5": {
@@ -384,7 +384,7 @@
                 "sha256:23ac5d50538a9a38c8bde05fecb47d0b403ecd0662857a86f886f798563d5b9b",
                 "sha256:45ea77a2f7c60418850331366c81cf6b5b9cf4c7fd34616f733c5427e6abbb1f"
             ],
-            "markers": "python_full_version >= '3.7.0'",
+            "markers": "python_version >= '3.7'",
             "version": "==3.0.38"
         },
         "psycopg2": {
@@ -491,11 +491,11 @@
         },
         "social-auth-app-django": {
             "hashes": [
-                "sha256:52241a25445a010ab1c108bafff21fc5522d5c8cd0d48a92c39c7371824b065d",
-                "sha256:b6e3132ce087cdd6e1707aeb1b588be41d318408fcf6395435da0bc6fe9a9795"
+                "sha256:0347ca4cd23ea9d15a665da9d22950552fb66b95600e6c2ebae38ca883b3a4ed",
+                "sha256:4a5dae406f3874b4003708ff120c02cb1a4c8eeead56cd163646347309fcd0f8"
             ],
             "index": "pypi",
-            "version": "==5.0.0"
+            "version": "==5.2.0"
         },
         "social-auth-core": {
             "hashes": [
@@ -882,13 +882,6 @@
             ],
             "markers": "python_full_version >= '3.6.2'",
             "version": "==0.7"
-        },
-        "pytz": {
-            "hashes": [
-                "sha256:1d8ce29db189191fb55338ee6d0387d82ab59f3d00eac103412d64e0ebd0c588",
-                "sha256:a151b3abb88eda1d4e34a9814df37de2a80e301e68ba0fd856fb9b46bfbbbffb"
-            ],
-            "version": "==2023.3"
         },
         "pyyaml": {
             "hashes": [
