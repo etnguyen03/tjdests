@@ -1,3 +1,4 @@
+from django.http import HttpRequest
 from django.test import TestCase
 
 from tjdests.apps.authentication.models import User
@@ -40,5 +41,7 @@ class TJDestsTestCase(TestCase):
                 "publish_data": publish_data,
             },
         )[0]
-        self.client.force_login(user)
+        user.set_password("hello123")
+        user.save()
+        self.client.login(username=username, password="hello123", request=HttpRequest())
         return user
