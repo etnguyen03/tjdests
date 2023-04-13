@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import logging
 import os
+import sys
 from pathlib import Path
 from typing import List, Optional
 
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
     "social_django",
     "django_extensions",
     "bootstrap_pagination",
+    "axes",
     "tjdests.apps.authentication",
     "tjdests.apps.destinations",
     "tjdests.apps.profile",
@@ -60,6 +62,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "axes.middleware.AxesMiddleware",
 ]
 
 ROOT_URLCONF = "tjdests.urls"
@@ -116,6 +119,7 @@ AUTH_PASSWORD_VALIDATORS = [
 AUTH_USER_MODEL = "authentication.User"
 
 AUTHENTICATION_BACKENDS = (
+    "axes.backends.AxesStandaloneBackend",
     "tjdests.apps.authentication.oauth.IonOauth2",
     "django.contrib.auth.backends.ModelBackend",
 )
@@ -162,6 +166,10 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 MESSAGE_TAGS = {
     messages.ERROR: "danger",
 }
+
+TESTING = any("test" in arg for arg in sys.argv)
+if TESTING:
+    AXES_ENABLED = False
 
 # Override the following in secret.py
 SENIOR_GRAD_YEAR: int = -1
