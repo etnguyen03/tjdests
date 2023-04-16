@@ -65,3 +65,14 @@ def accept_tos_view(request: HttpRequest) -> HttpResponse:
     context = {"form": form}
 
     return render(request, "authentication/accept_tos.html", context=context)
+
+
+def lockout(request, *args, **kwargs):
+    return HttpResponse(
+        (
+            "Your account has been locked due to too many failed login attempts, ",
+            f"please contact {settings.MAINTAINER} for assistance ",
+            "<i>or remember your password next time!</i>",
+        ),
+        status=403,
+    )
