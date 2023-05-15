@@ -16,7 +16,7 @@ psycopg2 = "~=2.9.5"
 pygments = "~=2.15.0"
 social-auth-app-django = "~=5.2.0"
 whitenoise = "~=6.4.0"
-django-axes = "~=5.41.0"
+django-axes = "~=5.41.1"
 
 [dev-packages]
 autopep8 = "~=2.0.2"
