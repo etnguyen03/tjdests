@@ -124,6 +124,9 @@ AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
 )
 
+AXES_LOCKOUT_CALLABLE = "tjdests.apps.authentication.views.lockout"
+MAINTAINER = ""
+
 SOCIAL_AUTH_REDIRECT_IS_HTTPS = False
 SOCIAL_AUTH_ION_KEY = ""
 SOCIAL_AUTH_ION_SECRET = ""
