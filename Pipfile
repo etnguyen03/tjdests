@@ -21,7 +21,7 @@ whitenoise = "~=6.4.0"
 [dev-packages]
 autopep8 = "~=2.0.2"
 black = "~=23.3.0"
-coverage = "~=7.2.5"
+coverage = "~=7.2.6"
 django-stubs = "~=1.16.0"
 flake8 = "~=6.0.0"
 isort = "~=5.12.0"
