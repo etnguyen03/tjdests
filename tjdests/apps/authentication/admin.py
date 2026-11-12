@@ -7,7 +7,7 @@ class UserAdmin(admin.ModelAdmin):
     search_fields = ["username", "first_name", "nickname", "last_name"]
     list_display = ["username", "last_name", "preferred_name", "last_modified"]
     list_filter = [
-        "is_senior",
+        "graduation_year",
         "is_student",
         "is_banned",
         "accepted_terms",
@@ -30,7 +30,6 @@ class UserAdmin(admin.ModelAdmin):
                     "use_nickname",
                     "is_staff",
                     "is_superuser",
-                    "is_senior",
                     "graduation_year",
                     "is_student",
                     "is_banned",

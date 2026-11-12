@@ -175,14 +175,15 @@ class DestinationsTest(TJDestsTestCase):
         # Test filtering with both at the same time
         response = self.client.get(
             reverse("destinations:students"),
-            data={"college": college.id, "q": "Angela"},
+            data={"college": str(college.id), "q": "Angela"},
         )
         self.assertEqual(200, response.status_code)
         self.assertIn(user, response.context["object_list"])
         self.assertNotIn(user2, response.context["object_list"])
 
         response = self.client.get(
-            reverse("destinations:students"), data={"college": college.id, "q": "Adam"}
+            reverse("destinations:students"),
+            data={"college": str(college.id), "q": "Adam"},
         )
         self.assertEqual(200, response.status_code)
         self.assertNotIn(user, response.context["object_list"])

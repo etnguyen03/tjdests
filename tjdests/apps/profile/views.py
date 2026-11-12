@@ -55,7 +55,7 @@ class TestScoreCreateView(
 
     def test_func(self):
         assert self.request.user.is_authenticated
-        return self.request.user.is_senior and self.request.user.accepted_terms
+        return self.request.user.can_update_profile and self.request.user.accepted_terms
 
     def get_success_url(self):
         return reverse("profile:index")
@@ -80,7 +80,7 @@ class TestScoreUpdateView(
 
     def test_func(self):
         assert self.request.user.is_authenticated
-        return self.request.user.is_senior and self.request.user.accepted_terms
+        return self.request.user.can_update_profile and self.request.user.accepted_terms
 
     def get_success_url(self):
         return reverse("profile:index")
@@ -101,7 +101,7 @@ class TestScoreDeleteView(
 
     def test_func(self):
         assert self.request.user.is_authenticated
-        return self.request.user.is_senior and self.request.user.accepted_terms
+        return self.request.user.can_update_profile and self.request.user.accepted_terms
 
     def get_success_url(self):
         return reverse("profile:index")
@@ -126,7 +126,7 @@ class DecisionCreateView(
 
     def test_func(self):
         assert self.request.user.is_authenticated
-        return self.request.user.is_senior and self.request.user.accepted_terms
+        return self.request.user.can_update_profile and self.request.user.accepted_terms
 
     def get_success_url(self):
         return reverse("profile:index")
@@ -157,7 +157,7 @@ class DecisionUpdateView(
 
     def test_func(self):
         assert self.request.user.is_authenticated
-        return self.request.user.is_senior and self.request.user.accepted_terms
+        return self.request.user.can_update_profile and self.request.user.accepted_terms
 
     def get_success_url(self):
         return reverse("profile:index")
@@ -178,7 +178,7 @@ class DecisionDeleteView(
 
     def test_func(self):
         assert self.request.user.is_authenticated
-        return self.request.user.is_senior and self.request.user.accepted_terms
+        return self.request.user.can_update_profile and self.request.user.accepted_terms
 
     def get_success_url(self):
         return reverse("profile:index")

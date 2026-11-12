@@ -7,7 +7,7 @@ defaults:
 
 .anchors:
   python_versions: &python_versions
-    - 3.9
+    - '3.12'
 
   python_setup: &python_setup
     name: Set up Python ${{ matrix.python-version }}
@@ -21,19 +21,25 @@ defaults:
 
   setup_pip_cache: &setup_pip_cache
     name: Set up pip cache
-    uses: actions/cache@v2
+    uses: actions/cache@v4
     with:
-      path: |
-        ~/.cache/pip
-        ~/.cache/pipenv
-      key: ${{ matrix.python-version }}
+      path: ~/.cache/pip
+      key: ${{ matrix.python-version }}-pip-${{ hashFiles('requirements.txt', 'requirements-dev.txt') }}
+
+  install_apt_deps: &install_apt_deps
+    name: Install APT dependencies
+    run: |
+       sudo apt-get -y install libyaml-dev
 
   setup_venv: &setup_venv
     name: Set up venv
     run: |
       set -e
-      pip install pipenv
-      pipenv install --dev --deploy
+      pip install --upgrade pip
+      # https://github.com/yaml/pyyaml/issues/724
+      pip install "cython<3.0.0"
+      pip install -r requirements.txt
+      pip install --no-build-isolation -r requirements-dev.txt
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -45,17 +51,18 @@ jobs:
       - *repo_setup
       - *python_setup
       - *setup_pip_cache
+      - *install_apt_deps
       - *setup_venv
 
       - name: Check formatting with format.sh
         run: |
           set -e
-          pipenv run ./scripts/format.sh
+          ./scripts/format.sh
           echo "A failure means that you did not run format.sh"
           test -z "$(git status --porcelain=v1 .)"
 
       - name: Check formatting with check.sh
-        run: pipenv run ./scripts/check.sh
+        run: ./scripts/check.sh
 
   test:
     runs-on: ubuntu-latest
@@ -67,16 +74,17 @@ jobs:
       - *repo_setup
       - *python_setup
       - *setup_pip_cache
+      - *install_apt_deps
       - *setup_venv
 
       - name: copy secret.py
         run: cp tjdests/settings/secret.sample.py tjdests/settings/secret.py
 
       - name: Run test suite
-        run: pipenv run coverage run ./manage.py test
+        run: coverage run ./manage.py test
 
       - name: migrate database
-        run: pipenv run ./manage.py migrate
+        run: ./manage.py migrate
 
       - name: Report coverage to Coveralls
         uses: AndreMiras/coveralls-python-action@develop

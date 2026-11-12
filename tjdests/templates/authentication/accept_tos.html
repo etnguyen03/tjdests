@@ -88,7 +88,7 @@
         </div>
     </div>
 
-    {% if request.user.is_senior %}
+    {% if request.user.can_update_profile %}
         <div style="height: 200px; margin-left: 10px; margin-bottom: 10px; border: 1px solid black;">
             <div style="height: inherit; overflow: auto; padding: 5px;">
                 <h4>Supplement to Terms of Service for Seniors</h4>

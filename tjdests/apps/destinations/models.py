@@ -239,3 +239,6 @@ class TestScore(models.Model):
 
     def __str__(self):
         return f"{self.get_exam_type_display()}: {self.exam_score}"
+
+    class Meta:
+        ordering = ["exam_type"]

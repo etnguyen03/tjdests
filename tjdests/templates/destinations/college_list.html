@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load bootstrap_pagination %}
+
 
 {% block content %}
     <h2>Student Destinations by College</h2>
@@ -10,26 +10,61 @@
     {% if search_query %}
         <p>
             Only showing colleges matching {{ search_query }}.
-            Navigate <a href="{% url "destinations:colleges" %}">here</a> to reset.
+            Navigate <a href="{% url "destinations:colleges" %}{% if selected_year != current_academic_year %}?year={{ selected_year }}{% endif %}">here</a> to reset.
         </p>
     {% endif %}
 
     <div class="container pb-3">
-        <form method="get">
-            <div class="form-floating mb-3">
+        <form method="get" class="row g-3 align-items-end">
+            <div class="col-md-8">
                 <div class="input-group">
                     <div class="input-group-text"><label for="search"><i class="fas fa-search" aria-label="Search"></i></label></div>
+                    {% if selected_year != current_academic_year %}<input type="hidden" name="year" value="{{ selected_year }}">{% endif %}
                     <input type="search" name="q" id="search" data-toggle="tooltip" data-bs-placement="bottom"
                            title="Filter by college name, city, or state abbreviation" aria-label="Search"
                            class="form-control" placeholder="Search" value="{{ search_query }}">
                 </div>
             </div>
+            <div class="col-md-4">
+                <select id="graduation-year" class="form-select" onchange="changeGraduationYear(this.value)" aria-label="Graduation Year">
+                    {% for year in available_years %}
+                        <option value="{{ year }}" {% if year == selected_year %}selected{% endif %}>
+                            Class of {{ year }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
         </form>
     </div>
+    
+    <script>
+        function changeGraduationYear(year) {
+            const url = new URL(window.location);
+            if (year == {{ current_academic_year }}) {
+                url.searchParams.delete('year');
+            } else {
+                url.searchParams.set('year', year);
+            }
+            window.location.href = url.toString();
+        }
+
+        document.getElementById('search').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const url = new URL(window.location);
+                const searchValue = this.value.trim();
+                if (searchValue) {
+                    url.searchParams.set('q', searchValue);
+                } else {
+                    url.searchParams.delete('q');
+                }
+                window.location.href = url.toString();
+            }
+        });
+    </script>
 
     <div class="row py-3">
         <div class="col justify-content-center">
-            {% bootstrap_paginate page_obj range=10 extra_pagination_classes="justify-content-center flex-wrap" %}
+            {% include "pagination.html" %}
         </div>
     </div>
 
@@ -56,7 +91,7 @@
             <tbody>
                 {% for college in object_list %}
                     <tr>
-                        <th scope="row"><a href="{% url "destinations:students" %}?college={{ college.id }}">{{ college }}</a></th>
+                        <th scope="row"><a href="{% url "destinations:students" %}?college={{ college.id }}{% if selected_year != current_academic_year %}&year={{ selected_year }}{% endif %}">{{ college }}</a></th>
                         <td>{{ college.count_decisions }}</td>
                         <td>{{ college.count_attending }}</td>
                         <td>{{ college.count_admit }}</td>
@@ -94,7 +129,7 @@
 
     <div class="row py-3">
         <div class="col justify-content-center">
-            {% bootstrap_paginate page_obj range=10 extra_pagination_classes="justify-content-center flex-wrap" %}
+            {% include "pagination.html" %}
         </div>
     </div>
 

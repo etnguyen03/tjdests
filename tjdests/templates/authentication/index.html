@@ -1,19 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h2>Welcome to {{ settings.BRANDING_NAME }} {{ settings.SENIOR_GRAD_YEAR }}</h2>
+    <h2>Welcome to {{ settings.BRANDING_NAME }}</h2>
 
     <p>
         This is intended to be a resource for:
         <ul>
-            <li>the class of {{ settings.SENIOR_GRAD_YEAR }} to share its progress in the admissions process with one another.</li>
-            <li>the class of {{ settings.SENIOR_GRAD_YEAR }} to share its achievements and college destinations with others.</li>
+            <li>students to share their progress in the admissions process with one another.</li>
+            <li>students to share their achievements and college destinations with others.</li>
             <li>other classes as they prepare to apply for college.</li>
         </ul>
     </p>
 
     {% if request.user.is_authenticated %}
-        {% if request.user.is_senior %}
+        {% if request.user.can_update_profile %}
             <p>You may add destination information by navigating to your profile.</p>
         {% endif %}
         <p>You may browse student destinations using the links above.</p>

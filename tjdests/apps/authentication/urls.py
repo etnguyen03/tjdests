@@ -14,4 +14,9 @@ urlpatterns = [
     ),
     path("logout", auth_views.LogoutView.as_view(), name="logout"),
     path("tos", views.accept_tos_view, name="tos"),
+    path(
+        "force-password-reset",
+        views.force_password_reset_view,
+        name="force_password_reset",
+    ),
 ]

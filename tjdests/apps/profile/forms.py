@@ -30,8 +30,9 @@ class ProfilePublishForm(forms.ModelForm):
         if data.get("biography"):
             data["biography"] = data["biography"].replace("\r", "")
             self.instance.biography = data["biography"]
-            assert self.fields["biography"].max_length is not None
-            if len(data["biography"]) <= self.fields["biography"].max_length:
+            biography_field = self.fields["biography"]
+            max_length = getattr(biography_field, "max_length", None)
+            if max_length is not None and len(data["biography"]) <= max_length:
                 if self.errors.get("biography"):
                     del self.errors["biography"]
 

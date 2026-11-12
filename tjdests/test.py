@@ -1,11 +1,12 @@
 from django.http import HttpRequest
 from django.test import TestCase
+from django.utils import timezone
 
 from tjdests.apps.authentication.models import User
 
 
 class TJDestsTestCase(TestCase):
-    def login(  # pylint: disable=too-many-arguments
+    def login(  # pylint: disable=too-many-positional-arguments,too-many-arguments
         self,
         username: str = "awilliam",
         accept_tos: bool = False,
@@ -29,16 +30,26 @@ class TJDestsTestCase(TestCase):
         Return:
             The user.
         """
+        # Set graduation year for seniors
+        graduation_year = 0
+        if make_senior:
+            now = timezone.now()
+            current_year = now.year
+            if now.month >= 8:  # Aug-Dec
+                graduation_year = current_year + 1
+            else:  # Jan-Jul
+                graduation_year = current_year
+
         user = User.objects.update_or_create(
             username=username,
             defaults={
                 "is_student": make_student,
                 "is_staff": make_superuser,
                 "is_superuser": make_superuser,
-                "is_senior": make_senior,
                 "is_banned": ban_user,
                 "accepted_terms": accept_tos,
                 "publish_data": publish_data,
+                "graduation_year": graduation_year,
             },
         )[0]
         user.set_password("hello123")

@@ -11,7 +11,7 @@
     {% endif %}
     <h4>Personal Information, Data Publication, College Attending, Biography</h4>
     <div class="container">
-        {% if request.user.is_senior %}
+        {% if request.user.can_update_profile %}
             {% if not request.user.publish_data %}
                 <div class="alert alert-warning" role="alert">
                     Your profile is currently hidden. You can publish your profile by marking the "publish my data" checkbox and submit this form.
@@ -19,13 +19,13 @@
             {% endif %}
             {% crispy profile_form %}
         {% else %}
-            <p>You are not a senior, so you cannot publish data.</p>
+            <p>You cannot publish data - profile updates are only available for graduated students and current seniors.</p>
         {% endif %}
     </div>
 
     <h4>Decisions</h4>
     <div class="container">
-        {% if request.user.is_senior %}
+        {% if request.user.can_update_profile %}
             <div class="pt-3 pb-3">
                 <a href="{% url "profile:decision_add" %}" class="btn btn-outline-primary">Add decision</a>
             </div>
@@ -69,13 +69,13 @@
                 </tbody>
             </table>
         {% else %}
-            <p>You are not a senior, therefore you cannot add decisions.</p>
+            <p>You cannot add decisions - profile updates are only available for graduated students and current seniors.</p>
         {% endif %}
     </div>
 
     <h4>Test Scores</h4>
     <div class="container">
-        {% if request.user.is_senior %}
+        {% if request.user.can_update_profile %}
             <div class="pt-3 pb-3">
                 <a href="{% url "profile:testscores_add" %}" class="btn btn-outline-primary">Add test score</a>
             </div>
@@ -116,7 +116,7 @@
                 </tbody>
             </table>
         {% else %}
-            <p>You are not a senior, therefore you cannot add test scores.</p>
+            <p>You cannot add test scores - profile updates are only available for graduated students and current seniors.</p>
         {% endif %}
     </div>
 

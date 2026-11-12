@@ -1,7 +1,5 @@
 from social_core.backends.oauth import BaseOAuth2
 
-from django.conf import settings
-
 
 class IonOauth2(BaseOAuth2):  # pylint: disable=abstract-method
     name = "ion"
@@ -34,7 +32,6 @@ class IonOauth2(BaseOAuth2):  # pylint: disable=abstract-method
             "is_student": profile["is_student"],
             "is_teacher": profile["is_teacher"],
             "graduation_year": profile["graduation_year"],
-            "is_senior": int(profile["graduation_year"]) == settings.SENIOR_GRAD_YEAR,
         }
 
     def get_user_id(self, details, response):

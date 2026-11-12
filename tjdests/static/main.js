@@ -1,4 +1,13 @@
 $(document).ready(function(){
+    // Set Bootstrap color mode based on system preference
+    function setThemeFromSystem() {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.setAttribute('data-bs-theme', prefersDark ? 'dark' : 'light');
+    }
+    setThemeFromSystem();
+    // Listen for changes in system preference
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', setThemeFromSystem);
+
     $("select").each(function(){
         new TomSelect("#" + this.id, {allowEmptyOption: true, "plugins": ["change_listener"]});
     });

@@ -1,15 +1,16 @@
 {% load static %}
+{% load django_bootstrap5 %}
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-bs-theme="auto">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.1.1/css/all.min.css">
 
-        <link href="{% static "bootstrap.min.css" %}" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6">
-        <script src="{% static "bootstrap.bundle.min.js" %}" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"></script>
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
 
         <script src="{% static "jquery.min.js" %}" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="></script>
 
@@ -19,13 +20,13 @@
 
         <script src="{% static "main.js" %}"></script>
 
-        <title>{{ settings.BRANDING_NAME }} {{ settings.SENIOR_GRAD_YEAR }}</title>
+        <title>{{ settings.BRANDING_NAME }}</title>
     </head>
     <body>
         <a class="visually-hidden-focusable" href="#content">Skip to main content</a>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
-                <a class="navbar-brand" href="{% url "authentication:index" %}">{{ settings.BRANDING_NAME }} {{ settings.SENIOR_GRAD_YEAR }}</a>
+                <a class="navbar-brand" href="{% url "authentication:index" %}">{{ settings.BRANDING_NAME }}</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -33,17 +34,20 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url "destinations:students" %}">Students</a>
+                            <a class="nav-link" href="{% url "destinations:students" %}{% if request.GET.year %}?year={{ request.GET.year }}{% endif %}">Students</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url "destinations:colleges" %}">Colleges</a>
+                            <a class="nav-link" href="{% url "destinations:colleges" %}{% if request.GET.year %}?year={{ request.GET.year }}{% endif %}">Colleges</a>
                         </li>
                         {% if request.user.is_authenticated %}
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url "profile:index" %}">Profile</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url "authentication:logout" %}">Logout</a>
+                                <form method="post" action="{% url "authentication:logout" %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="nav-link btn btn-link">Logout</button>
+                                </form>
                             </li>
                         {% endif %}
                     </ul>
